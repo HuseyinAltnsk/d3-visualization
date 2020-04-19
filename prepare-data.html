@@ -1,0 +1,82 @@
+
+<html>
+    <head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="d3-tip.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.js"></script>    
+    </head>
+
+    <script>
+        function saveData(originalData){
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(new Blob([JSON.stringify(originalData, null, 2)], {
+                type: "text/plain"
+            }));
+            a.setAttribute("download", "trade-data.js");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+        
+        d3.csv("./WtoData.csv").then(function(data) {
+            
+            cleanData = []
+            data.forEach(d => {    
+                if( existingCountry = cleanData.find(el => el.reportingEcon === d["Reporting Economy"])){
+                    if( partnerObj = existingCountry.partners.find(el => el.partnerEcon === d["Partner Economy"]) ){
+                        partnerObj.value += +d.Value;
+                    }else{
+                        var partner = { 
+                                        partnerCode: d["Partner Economy ISO3A Code"],
+                                        partnerEcon: d["Partner Economy"],
+                                        value: +d.Value
+                                    }
+                        existingCountry.partners.push(partner)
+                    }
+                }else{
+                    var country = { 
+                                    reportingCode: d["Reporting Economy ISO3A Code"],
+                                    reportingEcon: d["Reporting Economy"],
+                                    partners: [{
+                                        partnerCode: d["Partner Economy ISO3A Code"],
+                                        partnerEcon: d["Partner Economy"],
+                                        value: +d.Value
+                                    }]
+                                }
+                    cleanData.push(country)
+                }
+            });
+            // ---- DATA IS IN GOOD FORMAT AT THIS POINT FOR GRAPHES ----
+            
+            // Prepare data for hierarchical edge bundling
+            dataEdgeBundling = []
+
+            cleanData.forEach(d => {
+                // sumPartners = 0;
+                // d.partners.forEach(p => sumPartners += p.value)
+                
+                formattedData = {
+                    name: d.reportingEcon,
+                    // size: sumPartners,
+                    exports: d.partners.map(p => p.partnerEcon)
+                }
+                dataEdgeBundling.push(formattedData)
+            })
+
+            console.log(cleanData)
+            console.log(dataEdgeBundling)
+            
+            // NEXT STEPS:
+            //  adding Europe.Germany, MiddleEast.Tajikistan to layers/grouping in the viz
+            //  chloroplath of each country's total exports
+            //  then the top exporter's main clients to focus on the that top country
+            // saveData(dataEdgeBundling)
+            
+            
+            
+        });
+
+    </script>
+</html>

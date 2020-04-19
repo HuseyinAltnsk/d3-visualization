@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <!-- navigation button style -->
+    <link rel="stylesheet" href="styleNavigation.css"></script>
+    <script src="trade-data.js" type="text/javascript"></script>
+    <script src="dependency-tree.js" type="text/javascript"></script>
+    <title>Dependency Tree</title>
+    <style type="text/css">
+      body {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        display: table;
+      }
+      center {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      #legend {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+      #label {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font: 8pt Lucida Sans Typewriter, Monospace;
+      }
+      #backBuffer { display: none; }
+
+    </style>
+  </head>
+  <body>
+    <div style="position: absolute;">
+    <button class="buttonBack float-left submit-button" style="vertical-align:middle;" type="button" id="back"
+    onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button></span><br/>
+    <p class="textStyle" style="margin-left: 5px;">
+      This Hierarchical Edge Building chart illustrates <br/>
+      the bilateral dependency between the countries <br/>
+      for pharmaceutical products.</p><br/>
+    <p class="textStyle" style="margin-left: 5px; font-style: italic;">
+      Draw a line on the chart to highlight specific<br/>
+      dependencies and drag the country names to rotate.
+    </p>
+    </div>
+    <center style="background-color: #E1F2FE;">
+      <canvas id="canvas" width="850" height="768"></canvas>
+      <canvas id="legend" width="200" height="20"></canvas>
+      <div id="label"></div>
+    </center>
+    <script type="text/javascript">
+      new DependencyTreeControl(
+          document.getElementById("canvas"),
+          document.getElementById("legend"),
+          document.getElementById("label")).init();
+    </script>
+  </body>
+</html>

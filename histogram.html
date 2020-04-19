@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- navigation button style -->
+    <link rel="stylesheet" href="styleNavigation.css" />
+    <style>
+        svg {
+            border: solid 1px gray;
+        }
+        * {
+            font-family: sans-serif;
+        }
+        .label {
+            font-size: 9pt;
+        }
+        .category {
+            text-anchor: end;
+        }
+        .legend {
+            outline: 1px solid #808080;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body style="background-color: #E1F2FE;">
+
+<h1 class="textStyle"><span id="chart"></span> Total Imports</h1>
+<h3 class="textStyle">Country: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
+<div style="display: flex;">
+    <div>
+        <svg class="bar-chart"></svg>
+    </div>
+    <div class="textStyle" style="margin-left:50px; margin-right: 20px;">
+        <p>This chart displays the total imports of pharmaceutical products in billion USD of the top 20 countries.<br><br>
+        <span style="font-style: italic;">By clicking on a country's bar, you can display the top exporters i.e. partners of the selected country.</span>
+        </p>
+
+    </div>
+</div>
+
+<br/>
+<div id="myDiv" class="two">
+    <button class="buttonFeauture buttonFeauture2" type="button" id="ascending"><span>Ascending</span></button>
+    <button class="buttonFeauture buttonFeauture2" type="button" id="descending"><span>Descending</span></button><br/>
+    <button class="buttonFeauture buttonFeauture2" style="width:280px;" type="button" id="reset"><span>Reset</span></button>
+</div>
+
+<!-- Snackbar for the message -->
+<div id="snackbar">Some text message..</div>
+<script>
+function displaySnackbar(msg) {
+    var x = document.getElementById("snackbar"); // Get the snackbar DIV
+    x.className = "show"; // Add the "show" class to DIV
+    x.innerText = msg;
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+</script>
+<script>
+    var currentButton = "descending"
+    var colorChange = false;
+     const chart = {
+        width: 900,
+        height: 12          // the height is set after data is loaded
+    }
+    // after loading the data file, this will contain all data
+    var planets = [];
+    var cleanData = [];
+
+    console.log(document.getElementById("myDiv").innerText)
+    // scale functions and formats
+    const barScale = d3.scaleLinear().range([0, 600]);
+    const colorScale = d3.scaleLinear().range([0, 1]);
+    const format = d3.format(".2f");
+
+    // the container SVG
+    const svg = d3.select("svg.bar-chart");
+
+    d3.selectAll("button")
+        .on("click", function() {
+            var currentPlanets = svg.selectAll("g.entry").data();
+            
+            if(this.id == "ascending"){
+                currentButton = "ascending"
+                currentPlanets = currentPlanets.sort((a,b) => d3.ascending(a.totalTrades, b.totalTrades));
+            }else if(this.id == "descending"){
+                currentButton = "descending"
+                currentPlanets = currentPlanets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades));
+            }else{
+                window.location.reload();
+            }
+
+            draw(currentPlanets, colorChange);  // bar color change flag: if redrawing by these buttons, don't change color
+        });
+
+    d3.csv("WtoData.csv").then(function(data) {
+        data.forEach(d => {    
+            if( existingCountry = cleanData.find(el => el.reportingEcon === d["Reporting Economy"])){
+                if( partnerObj = existingCountry.partners.find(el => el.partnerEcon === d["Partner Economy"]) ){
+                    partnerObj.value += +d.Value;
+                }else{
+                    var partner = { 
+                                    partner_iso_3a: d["Partner Economy ISO3A Code"],
+                                    partnerEcon: d["Partner Economy"],
+                                    value: +d.Value
+                                }
+                    existingCountry.partners.push(partner)
+                }
+            }else{
+                var country = { 
+                                reporting_iso_3a: d["Reporting Economy ISO3A Code"],
+                                reportingEcon: d["Reporting Economy"],
+                                partners: [{
+                                    partner_iso_3a: d["Partner Economy ISO3A Code"],
+                                    partnerEcon: d["Partner Economy"],
+                                    value: +d.Value
+                                }]
+                            }
+                cleanData.push(country)
+            }
+        });
+
+        var tradeDirection = "Reporting Economy ISO3A Code"
+        var populationById = [];
+
+        data = d3.nest()
+            .key(d => d[tradeDirection])
+            .rollup(v => {
+                return { 
+                    totalTrades: d3.sum(v, d => d.Value)
+                }
+            })
+        .entries(data)
+        // data.forEach(function(d) { 
+        //     var obj = {}; 
+        //     obj.iso_3a = d.key; obj.totalTrades = +d.value.totalTrades;
+        //     planets.push(obj)
+        // });  // this block not used cuz it adds another O(n)
+        cleanData.map(d => {
+            var obj = {};
+            obj.iso_3a = d.reporting_iso_3a;
+            obj.reportingEcon = d.reportingEcon;
+            obj.totalTrades = d3.sum(d.partners, p => p.value);
+            planets.push(obj);
+        })
+        planets = planets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
+
+        // console.log(planets)
+        console.log(cleanData)
+        // var len = 5000;
+        // cleanData.forEach(d => { 
+        //     if(d.partners.length < len){
+        //         len = d.partners.length;
+        //         console.log(d.reporting_iso_3a, len)
+        //     }
+        // })
+        // console.log(len)  // country with smallest number of partners is LAO, len=21
+        init();
+    });
+
+    function setupView(planets) {
+        // disable all buttons
+        // d3.selectAll("button")
+        //   .property("disabled", false);
+        // enable only buttons that are not current chart
+        // d3.select("#" + currentButton)
+        //   .property("disabled", true);
+
+        // update page title
+        d3.select("#chart")
+        .text(currentButton == "ascending" ? "Ascending" : "Descending");
+
+        // update scale domain with current data
+        const maxValue = d3.max(planets, d => d.totalTrades);
+        barScale.domain([0, maxValue]);
+        colorScale.domain([0, maxValue]);
+    }
+
+    // runs once
+    function init() {
+        // viewport setup
+        chart.height += planets.length * 21;
+        svg.attr("width", chart.width)
+           .attr("height", chart.height);
+
+        // setup
+        setupView(planets);
+
+        // bind the data and draw the first chart
+        svg.selectAll("g")
+            .data(planets)
+            .enter().append("g").attr("class", "entry")
+            .attr("transform", (d,i) => `translate(0,${6 + i * 21})`)
+            .each(function(d) {
+                const entry = d3.select(this); // the current entry
+
+                entry.append("text").attr("class", "label category")
+                    .attr("y", 15)
+                    .attr("x", 150)
+                    .text(d.reportingEcon);
+
+                entry.append("rect").attr("class", "bar")
+                    .attr("x", 160)
+                    .attr("height", 19)
+                    .attr("width", barScale(d.totalTrades) )
+                    .style("fill", d3.color("crimson").darker(colorScale(d.totalTrades)) )
+
+                entry.append("text").attr("class", "label value")
+                    .attr("y", 15)
+                    .attr("x", barScale(d.totalTrades) + 165)
+                    .text("$"+format(d.totalTrades/1000000000) + " Billion");
+            });
+        draw(planets, colorChange)
+    }
+
+    function draw(planets, colorChange) {
+        setupView(planets);
+        console.log("Color change:", colorChange)
+
+        // svg.selectAll("g").selectAll("entry").remove();  // to remove all entries (bar data) inside the g's (bars) 
+        maxCurrentTotalTrade = d3.max(planets.map(d => d.totalTrades));
+        svg.selectAll("g")
+            .data(planets)
+            // .enter().append("g").attr("class", "entry")
+            // .attr("transform", (d,i) => `translate(0,${i * 21})`)
+            .each(function (d) {
+                const entry = d3.select(this); // the current entry
+
+                entry.select(".label.category")
+                    // .attr("y", 15)
+                    // .attr("x", 90)
+                    .text(d.reportingEcon);
+
+                var prevBarColor; // to preserve previous bar colors upon mouseover
+                
+                entry.select(".bar")
+                    .on("click", function(d){
+                        d3.select("#curCountry").text(d.reportingEcon)
+
+                        console.log(d, this);
+
+                        var newPlanets = [];
+                        var selectedC = cleanData.find(c => c.reporting_iso_3a == d.iso_3a)
+                        console.log("selectedC", selectedC)
+                        if(selectedC){
+                            selectedC.partners.map(c => {
+                                var obj = {};
+                                obj.iso_3a = c.partner_iso_3a;
+                                obj.reportingEcon = c.partnerEcon;
+                                obj.totalTrades = c.value;
+                                newPlanets.push(obj);
+                            })
+                        }else{
+                            var msg = `${d.reportingEcon} does not have any imports in the records.`
+                            displaySnackbar(msg);
+                            entry.select(".bar").on("mouseout").call() // prevent color from turning black bc onclick prevents mouseout
+                            
+                        }
+                        newPlanets = newPlanets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
+                        currentButton = "descending";
+                        
+                        svg.selectAll("g.entry").data(newPlanets);
+                        window.colorChange = true; // setting the boolean within the scope of the document, rather than draw()
+                        draw(newPlanets, window.colorChange)
+                    })
+                    .on("mouseover", function(d){
+                        // make current bar color lighter
+                        prevBarColor = this.style.fill;
+                        rgbArr = prevBarColor.slice(4,prevBarColor.length-1).split(", ").map(el => parseInt(el));
+                        const getMaxColor = (c) => c == d3.max(rgbArr);
+                        rgbArr[rgbArr.indexOf(d3.max(rgbArr))] = d3.max(rgbArr)+100 <= 255 ? d3.max(rgbArr)+100 : 255; // update color
+                        mouseOverColor = "rgb("+rgbArr.map(el => `${el}`).join(", ")+")";
+                        
+                        d3.select(this).style("fill", mouseOverColor).style("stroke", "E1F2FE").style("stroke-width", 4)
+                    })
+                    .on("mouseout", function(d){
+                        function stoperror() {
+                            return true; // to not display an error that is not even really happening
+                        }
+                        window.onerror = stoperror;
+                        d3.select(this)
+                            .style("fill", d3.color(colorChange ? "#2FAF05" : "crimson").darker(colorScale(d.totalTrades)))
+                            .style("stroke", "").style("stroke-width", 0)
+                    })
+                    .transition()
+                        .attr("width", barScale(d.totalTrades))
+                        .style("fill", d3.color(colorChange ? "#2FAF05" : "crimson").darker(colorScale(d.totalTrades)) )
+                   
+
+                entry.select(".label.value")
+                    // .attr("y", 15)
+                    .transition()
+                        .attr("x", barScale(d.totalTrades) + 165)
+                        .text("$"+format(d.totalTrades/1000000000)+" Billion");
+                
+                entry
+                .on("mouseover", function(d){
+                    d3.select(this).select(".label").style("stroke", "black")
+                })
+                .on("mouseout", function(){
+                    d3.select(this).select(".label").style("stroke", "")
+                })
+
+
+
+                //  adding Europe.Germany, MiddleEast.Tajikistan to layers/grouping in the viz
+                // back button for histogram
+                // disable clicking for 2 seconds for choropleth upon load ?? necessary or not ??
+                // rename planets/newPlanets to something else but similar
+                
+                // d3.select(this).select(".label.category")
+                //     .text(d.iso_3a); // the order may have changed
+                // d3.select(this).select(".bar")
+                //   .transition()
+                //     .attr("width", barScale(d.totalTrades))
+                //     .style("fill", d3.color("orange")
+                //                      .darker(colorScale(d.totalTrades)))
+                // d3.select(this).select(".label.value")
+                //   .transition()
+                //     .attr("x", barScale(d.totalTrades) + 105)
+                //     .text(format(d.totalTrades) + " AU");
+
+                // entry.select(".bar")
+                
+                // .on("mouseover", function(d){
+                //     // console.log(d3.select(this).style("stroke", "black"))
+                //     // d3.select(this)
+                //     //     .style("stroke", "black")
+                //     //     .style("stroke-width",1)
+                //     //     .style("size", 20);
+                // })
+                // .on("mouseout", function(d){
+                //     // d3.select(this)
+                //     //     .style("stroke", "")
+                //     //     .style("stroke-width",1);
+                // })
+
+            });
+
+
+        // Legend
+        var legendLabels = [
+            {
+                label:"Top importers",
+                color:"crimson"
+            }, 
+            {
+                label:"Exporters of selected country",
+                color:"#2FAF05"
+            }
+        ];
+
+        var legend = svg.append("g")
+            .attr("class", "legend")  
+            .style("font-size", "15px")
+            .attr("fill", "blue")  // g tags are special parent objects, their styles get applied to all their child objects
+        
+        legend.selectAll("rect").data(legendLabels)
+        .enter()
+        .append("circle")
+            .attr("cx", chart.width/1.30-15)
+            .attr("cy", (d,i) => chart.height/2 - (20*(legendLabels.length-1-i))-2)
+            .attr("r", 7)
+            .style("fill", d => d.color)
+       
+        legend.selectAll("rect").data(legendLabels).enter()
+        .append("text")
+            .attr("x", chart.width/1.30)
+            .attr("y", (d,i) => chart.height/2 - (20*(legendLabels.length-1-i)))
+            .style("fill", d => d.color)
+            .text(d => d.label)
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+   
+    }
+
+
+</script>
+</body>
+</html>
