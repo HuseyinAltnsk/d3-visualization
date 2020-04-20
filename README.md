@@ -1,2 +1,2 @@
 # d3-visualization
-Visualizing the global bilateral trades of pharmaceutical products
+Analyzing the global bilateral trades of pharmaceutical products with dynamic and interactive visualizations created using D3.js
