@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="styleNavigation.css" />
     </head>
 
-    <body style="padding: 5px; background-color: #E1F2FE;">
-    <h1 class="textStyle">Data Visualization - Final Project</h1>
-    <p class="textStyle" style="padding-left: 20px;"><b>Project Title:</b> Analyzing Bilateral Trades of Pharmaceutical Products</p>
-    <h3 class="textStyle" style="margin-bottom: 10px">Definitions</h3>
+    <body style="padding: 5px; background-color: #E1F2FE; text-align: start;">
+        <h1 class="textStyle" style="text-align: center;">Analyzing Bilateral Trades of Pharmaceutical Products</h1>
+    <div style="width: 40%; margin: auto;">
+    <h3 class="textStyle" style="margin-bottom: -5px; text-align: center;">Definitions</h3>
     <p class="textStyle" style="padding-left: 20px;"><b>Bilateral Trade:</b> Exchange of goods between a unique pair of countries</p>
-    <h3 class="textStyle" style="margin-bottom: 10px">Dataset</h3>
-    <div class="textStyle" style="padding-left: 20px;">
-        The statistical information used for this project was taken from the following website of<br>World Trade Organization (WTO):
-        <a href="https://timeseries.wto.org/">https://timeseries.wto.org/</a><br>The dataset used here corresponds to the bilateral
-        imports of pharmaceutical products by country in 2017. A full list of the<br>product categories taken into account can be 
-        found here: <a href="http://localhost:3000/products.txt">Product Categories</a><br>
+    <h3 class="textStyle" style="margin-bottom: 10px; text-align: center;">Dataset</h3>
+    <div class="textStyle" style="padding-left: 20px; ">
+        The statistical information used for this project was taken from the following website of World Trade Organization (WTO):
+        <a href="https://timeseries.wto.org/">https://timeseries.wto.org/</a><br>
+        The dataset used here corresponds to the bilateral imports of pharmaceutical products by country in 2017. A full list of the 
+        product categories taken into account can be found here: <a href="http://localhost:3000/products.txt">Product Categories</a><br>
         The dataset contains
         <ul class="textStyle" style="padding-left: 40px; margin-bottom: -5px">
             <li>177 unique countries across the globe.</li>
@@ -26,14 +26,14 @@
             <li>$757,695,450,733.215 worth of trades in total (about $758 billion)</li>
         </ul> 
     </div>
-    <h3 class="textStyle" style="margin-bottom: -5px;">Visualizations</h3>
-    <div style="padding-left: 10px;">
-        <p class="textStyle">Three different types of visualizations were used to analyze the dataset from three<br>unique perspectives.</p>
+    <h3 class="textStyle" style="margin-bottom: -5px; text-align: center;">Visualizations</h3>
+    <p class="textStyle" style="padding-left: 20px;">Three different types of visualizations were used to analyze the dataset from three unique perspectives.</p>
+    <div style=" text-align: center;">
         <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/choropleth.html';" id="myButton"><span>Choropleth</span></button>
         <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/histogram.html';" id="myButton"><span>Histogram</span></button><br/>
         <button class="buttonLink float-left submit-button" style="vertical-align:middle; width: 415px;" onclick="location.href='http://localhost:3000/edge-bundling.html';" id="myButton"><span>Hierarchical Edge Bundling</span></button>
     </div>
-    
+    </div>
     </body>
     
 </html>
