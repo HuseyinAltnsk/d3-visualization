@@ -95,13 +95,15 @@
 <div id="myDiv" class="textStyle" style="display: flex;">
     <button class="buttonBack" style="vertical-align:middle; height: 50px;" type="button" id="back"
     onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
-    <button class="buttonFeauture buttonFeauture2" type="button" id="toggle" style="margin-top:5px; height: 50px;"><span>Exports View</span></button>
-    <h1 id="headline" class="textStyle" style="position:absolute; margin-left: 30%; vertical-align: middle;">Total <b>Imports</b> by Country</h1>
+    <button class="buttonFeauture buttonFeauture2" type="button" id="toggle"
+            style="margin-top:5px; height: 50px; color: #1205AD; font-weight: bold;"><span>Exports View</span></button>
+    <h1 id="headline" class="textStyle" style="position:absolute; margin-left: 30%; vertical-align: middle;">
+        Total <span id="myView" style="color: #FF4500;"><b></b>Imports</b></span> by Country</h1>
 </div>
 <div style="display: flex;">
     <div style="width: 10%; flex: 1; padding: 1em;">
         <p class="textStyle" style="margin-left: 5px; font-style: italic;">
-            <span style="font-style: normal;">This choropleth illustrates total imports or exports by each country in billion USD.<br/>
+            <span style="font-style: normal;">This choropleth illustrates total imports or exports by each country in USD.<br/>
             Thus, rather than demonstrating bilateral trades, it provides a perspective into each country's <b>total global trade</b>.<br/>
             The countries with <b>"NaN"</b> either did not take part in trades of pharmaceutical products or did not report their trades to WTO.<br/>
             The range slider was provided to enable elimination of <b>outlier countries</b> and be able to focus more on other countries.
@@ -172,11 +174,15 @@ function ready(error, data, population) {
             if(tradeDirection == "Reporting Economy ISO3A Code"){
                 tradeDirection = "Partner Economy ISO3A Code"
                 d3.select("#toggle").node().innerText = "Imports View"
+                d3.select("#toggle").style("color", "#FF4500").style("font-weight", "bold")
                 d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Exports</b> by Country"
+                console.log(d3.select("#myDiv").select("h1").select("#myView").style("color", "#1205AD"))
             }else{
                 tradeDirection = "Reporting Economy ISO3A Code"
                 d3.select("#toggle").node().innerText = "Exports View"
+                d3.select("#toggle").style("color", "#1205AD").style("font-weight", "bold")
                 d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Imports</b> by Country"
+                console.log(d3.select("#myDiv").select("h1").select("#myView").style("color", "#FF4500"))
             }   
             d3.select('div#slider-range').select("svg").remove();
             d3.select('p#value-range').select("text").remove();
@@ -225,10 +231,10 @@ function ready(error, data, population) {
             d.totalTrades = populationById[d.properties.iso_a3] 
         });
         
-        console.log("Data being visualized is 'data.features.properties.name' and 'data.features.totalTrades' field of each object in the following array")
         console.log("data.features", data.features)
-
-        var myColor = d3.scaleLinear().domain(d3.extent(data.features, d => d.totalTrades)).range(["pink", "crimson"])
+                                                                                                            // 2nd and 4th are original colors  
+        var myColorImports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#ffdacc", "#fcb59a", "#ff703b", "#FF4500"]) // orange
+        var myColorExports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#c5bfff", "#8d86e3", "#4f42e3", "#1205AD"]) // purple
 
         svg.append("g")
             .attr("class", "countries")
@@ -238,27 +244,26 @@ function ready(error, data, population) {
             .attr("d", path)
             
             // .style("fill", d => d3.color("lightblue").darker(logScale(d.totalTrades)))
-            .style("fill", d => myColor(d.totalTrades))
+            .style("fill", d => d.totalTrades === undefined ? "lightgray" 
+                : d3.select("#toggle").node().innerText === "Exports View" ? myColorImports(d.totalTrades) : myColorExports(d.totalTrades))
             .style('stroke', 'white')
             .style('stroke-width', 1.5)
-            .style("opacity",0.8)
+            // .style("opacity", d => d.totalTrades === undefined ? 0.1 : 1)
             // tooltips
-            .style("stroke","white")
+            .style("stroke", "black")
             .style('stroke-width', .3)
             .on('mouseover',function(d){
                 tip.show(d);
     
                 d3.select(this)
-                .style("opacity", 1)
-                .style("stroke", "green")
-                .style("stroke-width",3);
+                // .style("stroke", "black")
+                .style("stroke-width",2.4);
             })
             .on('mouseout', function(d){
                 tip.hide(d);
     
                 d3.select(this)
-                .style("opacity", 0.8)
-                .style("stroke","white")
+                // .style("stroke","black")
                 .style("stroke-width",0.3);
             });
 
@@ -282,14 +287,17 @@ function ready(error, data, population) {
             .on('onchange', val => {
                 var currentData = data.features.filter(d => d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000);
                 var currentMinMax = d3.extent(currentData, d => d.totalTrades)
-                myColor.domain(currentMinMax); // domain updated with filtered data's range
+                d3.select("#toggle").node().innerText === "Exports View" ? myColorImports.domain(currentMinMax) : myColorExports.domain(currentMinMax) // domain updated with filtered data's range
 
                 d3.select('p#value-range').text(val.map(d3.format('$.4')).join(' - '));
                 d3.select("div#choropleth").select("g").selectAll("path")
                     .style("fill", d => {
                           return d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000 ?
-                            myColor(d.totalTrades) : "black";
-                        });
+                          d3.select("#toggle").node().innerText === "Exports View" ? myColorImports(d.totalTrades) : myColorExports(d.totalTrades)
+                            : "lightgray";
+                        })
+                    // .style("opacity", d => !(d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000) ? 0.1 : 1)
+
             });
 
         var gRange = d3.select('div#slider-range')
