@@ -26,8 +26,9 @@
     </style>
 </head>
 <body style="background-color: #E1F2FE;">
-
-<h1 class="textStyle"><span id="chart"></span> Total Imports</h1>
+<button class="buttonBack" style="vertical-align:middle; height: 50px; margin-top: -10px; margin-left: 0px; float: left;" type="button" id="back"
+    onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
+<h1 class="textStyle" style="margin-left: 20%; margin-bottom: -10px;"><span id="chart"></span> Total Imports</h1>
 <h3 class="textStyle">Country: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
 <div style="display: flex;">
     <div>
@@ -89,7 +90,7 @@ function displaySnackbar(msg) {
             }else if(this.id == "descending"){
                 currentButton = "descending"
                 currentPlanets = currentPlanets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades));
-            }else{
+            }else if(this.id == "reset"){
                 window.location.reload();
             }
 
@@ -206,7 +207,7 @@ function displaySnackbar(msg) {
                     .attr("x", 160)
                     .attr("height", 19)
                     .attr("width", barScale(d.totalTrades) )
-                    .style("fill", d3.color("crimson").darker(colorScale(d.totalTrades)) )
+                    .style("fill", d3.color("#e33e00").darker(colorScale(d.totalTrades)) )
 
                 entry.append("text").attr("class", "label value")
                     .attr("y", 15)
@@ -271,6 +272,7 @@ function displaySnackbar(msg) {
                         prevBarColor = this.style.fill;
                         rgbArr = prevBarColor.slice(4,prevBarColor.length-1).split(", ").map(el => parseInt(el));
                         const getMaxColor = (c) => c == d3.max(rgbArr);
+                        rgbArr[1] = d3.max(rgbArr)+100 > 255 ? rgbArr[1]+80 : rgbArr[1]; // specific to orange/ to make it brighter/lighter
                         rgbArr[rgbArr.indexOf(d3.max(rgbArr))] = d3.max(rgbArr)+100 <= 255 ? d3.max(rgbArr)+100 : 255; // update color
                         mouseOverColor = "rgb("+rgbArr.map(el => `${el}`).join(", ")+")";
                         
@@ -282,12 +284,12 @@ function displaySnackbar(msg) {
                         }
                         window.onerror = stoperror;
                         d3.select(this)
-                            .style("fill", d3.color(colorChange ? "#2FAF05" : "crimson").darker(colorScale(d.totalTrades)))
+                            .style("fill", d3.color(colorChange ? "#1b9e33" : "#e33e00").darker(colorScale(d.totalTrades)))
                             .style("stroke", "").style("stroke-width", 0)
                     })
                     .transition()
                         .attr("width", barScale(d.totalTrades))
-                        .style("fill", d3.color(colorChange ? "#2FAF05" : "crimson").darker(colorScale(d.totalTrades)) )
+                        .style("fill", d3.color(colorChange ? "#1b9e33" : "#e33e00").darker(colorScale(d.totalTrades)) )
                    
 
                 entry.select(".label.value")
@@ -345,11 +347,11 @@ function displaySnackbar(msg) {
         var legendLabels = [
             {
                 label:"Top importers",
-                color:"crimson"
+                color:"#e33e00"
             }, 
             {
                 label:"Exporters of selected country",
-                color:"#2FAF05"
+                color:"#1b9e33"
             }
         ];
 
