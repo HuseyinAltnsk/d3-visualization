@@ -36,6 +36,7 @@
                         existingCountry.partners.push(partner)
                     }
                 }else{
+
                     var country = { 
                                     reportingCode: d["Reporting Economy ISO3A Code"],
                                     reportingEcon: d["Reporting Economy"],
@@ -61,20 +62,71 @@
                     name: d.reportingEcon,
                     code: d.reportingCode,
                     // size: sumPartners,
-                    exports: d.partners.map(p => p.partnerEcon)
+                    exports: d.partners.map(p => {
+                        var obj = {};
+                        obj.partnerEcon = p.partnerEcon;
+                        obj.partnerCode = p.partnerCode
+                        return obj;
+                    }) // list of d.reportingEcon's exporters (those that sent do it)
                 }
                 dataEdgeBundling.push(formattedData)
             })
 
             console.log(cleanData)
-            console.log(dataEdgeBundling)
+            console.log("dataEdgeBundling", dataEdgeBundling)
             var continentData = []
+            
             d3.json("world.geo.json").then(function(f){
+
                 console.log(f.features)
                 dataEdgeBundling.forEach(d => {
-                    console.log(d.name, f.features.find(p => p.properties.iso_a3 === d.code))
-                    d.name = f.features.find(p => p.properties.iso_a3 === d.code).properties.continent + "." + d.name;
+                    console.log(d)
+
+                    // key
+                    // console.log(d.name, f.features.find(p => p.properties.iso_a3 === d.code))
+                    if(d.name === "Chinese Taipei"){
+                        d.name = "Asia."+d.name;
+                    }else if(d.name === "Maldives"){
+                        d.name = "Asia."+d.name;
+                    }else if(d.name === "Mauritius" || d.name === "Seychelles"){
+                        d.name = "Africa."+d.name;
+                    }else if(d.name === "Norway"){
+                        d.name = "Europe."+d.name;
+                    }
+                    else{
+                        // try{
+                            d.name = f.features.find(c => c.properties.iso_a3 === d.code).properties.continent + "." + d.name;
+                        // }catch(err){
+                            // console.log("ERROR", err)
+                        // }
+                    }
+
+                    // partners
+                    d.exports.forEach(p => {
+                        console.log("partner:", p)
+                        if(p.partnerEcon === "Chinese Taipei"){
+                        p.partnerEcon = "Asia."+p.partnerEcon;
+                        }else if(p.partnerEcon === "Maldives"){
+                            p.partnerEcon = "Asia."+p.partnerEcon;
+                        }else if(p.partnerEcon === "Mauritius" || p.partnerEcon === "Seychelles"){
+                            p.partnerEcon = "Africa."+p.partnerEcon;
+                        }else if(p.partnerEcon === "Norway"){
+                            p.partnerEcon = "Europe."+p.partnerEcon;
+                        }
+                        else{
+                            p.partnerEcon = f.features.find(c => c.properties.iso_a3 === p.partnerCode).properties.continent + "." + p.partnerEcon;
+                        }
+                    });
+
+                   
                 })
+
+                dataEdgeBundling.forEach(d => {
+                    // d.name = d.name.split(" ").join("_")
+                    d.exports = d.exports.map(p => p.partnerEcon);
+                })
+                console.log(dataEdgeBundling)
+                saveData(dataEdgeBundling)
             })
 
             // NEXT STEPS:
