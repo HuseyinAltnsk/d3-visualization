@@ -160,6 +160,16 @@ queue()
     .defer(d3.csv, "WtoData.csv")
     .await(ready);
 
+function saveData(originalData){
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(originalData, null, 2)], {
+        type: "text/plain"
+    }));
+    a.setAttribute("download", "continent-data.js");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+};
 function ready(error, data, population) {
     var tradeDirection = "Reporting Economy ISO3A Code"
 
@@ -189,7 +199,6 @@ function ready(error, data, population) {
             d3.select("svg").remove();
             draw(error, data, population);              
         });
-
 
     // TIME TO DRAW
     function draw(error, data, population){
@@ -225,13 +234,64 @@ function ready(error, data, population) {
         population.forEach(function(d) { populationById[d.key] = +d.value.totalTrades; });
     
         console.log(populationById)
-        
         data.features.forEach(function(d) { 
             // console.log(d.properties)
             d.totalTrades = populationById[d.properties.iso_a3] 
         });
         
+        ////////////////////////////////////////////////////////////////////////////////////////
         console.log("data.features", data.features)
+        d3.csv("./WtoData.csv").then(function(data) {
+            cleanData = []
+            data.forEach(d => {    
+                if( existingCountry = cleanData.find(el => el.reportingEcon === d["Reporting Economy"])){
+                    if( partnerObj = existingCountry.partners.find(el => el.partnerEcon === d["Partner Economy"]) ){
+                        partnerObj.value += +d.Value;
+                    }else{
+                        var partner = { 
+                                        partnerCode: d["Partner Economy ISO3A Code"],
+                                        partnerEcon: d["Partner Economy"],
+                                        value: +d.Value
+                                    }
+                        existingCountry.partners.push(partner)
+                    }
+                }else{
+                    var country = { 
+                                    reportingCode: d["Reporting Economy ISO3A Code"],
+                                    reportingEcon: d["Reporting Economy"],
+                                    partners: [{
+                                        partnerCode: d["Partner Economy ISO3A Code"],
+                                        partnerEcon: d["Partner Economy"],
+                                        value: +d.Value
+                                    }]
+                                }
+                    cleanData.push(country)
+                }
+            });
+            console.log("cleanData:", cleanData)
+            // cleanData.forEach(d => {
+                
+            // })
+        })  
+
+        data.features.forEach(d => {
+            d.partners = cleanData.map(d2 => d2.reportingCode === d.properties.iso_3a).partners;
+        })
+        console.log(data.features)
+        var continentData = [];
+        data.features.forEach(d => {
+                // sumPartners = 0;
+                // d.partners.forEach(p => sumPartners += p.value)
+                
+                formattedData = {
+                    name: d.continent+"."+d.reportingEcon,
+                    // size: sumPartners,
+                    exports: d.partners.map(p => p.partnerEcon)
+                }
+                continentData.push(formattedData)
+        })
+        saveData(continentData)
+
                                                                                                             // 2nd and 4th are original colors  
         var myColorImports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#ffdacc", "#fcb59a", "#ff703b", "#FF4500"]) // orange
         var myColorExports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#c5bfff", "#8d86e3", "#4f42e3", "#1205AD"]) // purple

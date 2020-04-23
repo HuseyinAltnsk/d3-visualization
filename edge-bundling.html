@@ -45,11 +45,17 @@
     </p>
     </div>
     <center style="background-color: #E1F2FE;">
-      <canvas id="canvas" width="850" height="768"></canvas>
-      <canvas id="legend" width="200" height="20"></canvas>
-      <div id="label"></div>
+      <canvas id="canvas" width="1000" height="900"></canvas>
+      <canvas id="legend" width="200" height="30"></canvas>
+      <div id="label" style="font-size:20px; font-weight: bold;"></div>
     </center>
     <script type="text/javascript">
+      // source->target
+      // black->green (green has black, i.e. green:{black, ...}
+      // 
+      // green      ->     red (green imports from red, i.e. green:{red, ...})
+      // green -> black (green imports from black, i.e. green:{black, ...})
+      //          black -> red (black imports from red, i.e. black:{red, ...})
       new DependencyTreeControl(
           document.getElementById("canvas"),
           document.getElementById("legend"),

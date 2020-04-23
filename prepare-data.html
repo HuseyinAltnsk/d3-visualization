@@ -14,7 +14,7 @@
             a.href = URL.createObjectURL(new Blob([JSON.stringify(originalData, null, 2)], {
                 type: "text/plain"
             }));
-            a.setAttribute("download", "trade-data.js");
+            a.setAttribute("download", "continent-data.js");
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -59,6 +59,7 @@
                 
                 formattedData = {
                     name: d.reportingEcon,
+                    code: d.reportingCode,
                     // size: sumPartners,
                     exports: d.partners.map(p => p.partnerEcon)
                 }
@@ -67,7 +68,15 @@
 
             console.log(cleanData)
             console.log(dataEdgeBundling)
-            
+            var continentData = []
+            d3.json("world.geo.json").then(function(f){
+                console.log(f.features)
+                dataEdgeBundling.forEach(d => {
+                    console.log(d.name, f.features.find(p => p.properties.iso_a3 === d.code))
+                    d.name = f.features.find(p => p.properties.iso_a3 === d.code).properties.continent + "." + d.name;
+                })
+            })
+
             // NEXT STEPS:
             //  adding Europe.Germany, MiddleEast.Tajikistan to layers/grouping in the viz
             //  chloroplath of each country's total exports

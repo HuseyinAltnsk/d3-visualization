@@ -813,6 +813,8 @@ Color.red = new Color.Rgb(255, 0, 0, 1);
 Color.green = new Color.Rgb(0, 255, 0, 1);
 Color.blue = new Color.Rgb(0, 0, 255, 1);
 Color.black = new Color.Rgb(0, 0, 0, 1);
+Color.purple = new Color.Rgb(113, 63, 232, 1);
+Color.orange = new Color.Rgb(255, 69, 0, 1);
 
 function Gradient(b, a) {
     this.start = b.rgb();
@@ -1149,21 +1151,21 @@ function DependencyTreeControl(m, e, q) {
         var g = e.getContext("2d");
         var b = g.canvas.width,
             P = g.canvas.height;
-        g.clearRect(0, 0, b, P);
+        g.clearRect(10, 0, b, P);
         var Q = g.createLinearGradient(20, 0, b - 20, 0);
         Q.addColorStop(0, d.start.toString());
         Q.addColorStop(1, d.end.toString());
         g.fillStyle = Q;
-        g.fillRect(20, 13, b - 35, 5);
-        g.font = "10pt Sans-Serif";
+        g.fillRect(20, 18, b - 35, 5);
+        g.font = "15pt Times New Roman";
         g.fillStyle = s.labelStart;
-        g.fillText("A", 8, 17);
+        g.fillText("A", 2, 22);
         g.fillStyle = s.labelEnd;
-        g.fillText("B", b - 12, 17);
-        var j = "exports to";
+        g.fillText("B", b - 12, 22);
+        var j = "imports froms";
         var i = g.measureText(j).width;
         g.fillStyle = s.intersectStroke;
-        g.fillText(j, (b - i)/2, 10)
+        g.fillText(j, (b - i)/2, 15)
     }
 
     function F() {
@@ -1175,7 +1177,7 @@ function DependencyTreeControl(m, e, q) {
         c()
     }
     this.init = function () {
-        J.font = "6pt Sans-Serif";
+        J.font = "7.5pt Sans-Serif";
         x();
         F()
     }
@@ -1183,20 +1185,20 @@ function DependencyTreeControl(m, e, q) {
 DependencyTreeControl._light = {
     background: "white",
     edgeComposite: "darker",
-    edgeStart: Color.green,
-    edgeEnd: Color.red,
-    edgeInactive: "rgba(0, 0, 0, .02)",
-    labelStart: "rgb(0, 128, 0)",
-    labelEnd: "rgb(128, 0, 0)",
+    edgeStart: Color.orange,
+    edgeEnd: Color.purple,
+    edgeInactive: "rgba(0, 0, 0, .008)",
+    labelStart: "rgb(255, 69, 0)",
+    labelEnd: "rgb(113, 63, 232)",
     labelActive: "black",
     labelInactive: "rgba(0, 0, 0, .2)",
-    intersectStroke: "black",
+    intersectStroke: "green",
     intersectFill: "white",
 };
 DependencyTreeControl._dark = {
     background: "black",
     edgeComposite: "lighter",
-    edgeStart: Color.green,
+    edgeStart: Color.blue,
     edgeEnd: Color.red,
     edgeInactive: "rgba(192, 192, 192, .02)",
     labelStart: "rgb(0, 192, 0)",
