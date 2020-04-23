@@ -1192,7 +1192,7 @@ DependencyTreeControl._light = {
     labelEnd: "rgb(113, 63, 232)",
     labelActive: "black",
     labelInactive: "rgba(0, 0, 0, .2)",
-    intersectStroke: "black",
+    intersectStroke: "green",
     intersectFill: "white",
 };
 DependencyTreeControl._dark = {

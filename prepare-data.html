@@ -62,6 +62,7 @@
                     name: d.reportingEcon,
                     code: d.reportingCode,
                     // size: sumPartners,
+                    size: Math.round(d3.sum(d.partners, p => p.value)), // size is totalImports
                     exports: d.partners.map(p => {
                         var obj = {};
                         obj.partnerEcon = p.partnerEcon;
@@ -92,12 +93,13 @@
                         d.name = "EUROPE."+d.name;
                     }
                     else{
-                        d.name = f.features.find(c => c.properties.iso_a3 === d.code).properties.continent.toUpperCase() + "." + d.name;
+                        var countryInfo = f.features.find(c => c.properties.iso_a3 === d.code);
+                        d.name = countryInfo.properties.continent.toUpperCase() + "." + countryInfo.properties.subregion.toUpperCase() + "." + d.name;
                     }
 
                     // partners
                     d.exports.forEach(p => {
-                        console.log("partner:", p)
+                        // console.log("partner:", p)
     
                         p.partnerEcon = p.partnerEcon.includes(",") ? p.partnerEcon.split(",")[1].slice(1)+" "+p.partnerEcon.split(",")[0] : p.partnerEcon;
 
@@ -109,7 +111,8 @@
                             p.partnerEcon = "EUROPE."+p.partnerEcon;
                         }
                         else{
-                            p.partnerEcon = f.features.find(c => c.properties.iso_a3 === p.partnerCode).properties.continent.toUpperCase() + "." + p.partnerEcon;
+                            var partnerCountryInfo = f.features.find(c => c.properties.iso_a3 === p.partnerCode);
+                            p.partnerEcon = partnerCountryInfo.properties.continent.toUpperCase() + "." + partnerCountryInfo.properties.subregion.toUpperCase() + "." + p.partnerEcon;
                         }
                     });
 
