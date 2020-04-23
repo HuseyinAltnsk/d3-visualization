@@ -82,39 +82,34 @@
                 dataEdgeBundling.forEach(d => {
                     console.log(d)
 
+                    d.name = d.name.includes(",") ? d.name.split(",")[1].slice(1)+" "+d.name.split(",")[0] : d.name;
                     // key
-                    // console.log(d.name, f.features.find(p => p.properties.iso_a3 === d.code))
-                    if(d.name === "Chinese Taipei"){
-                        d.name = "Asia."+d.name;
-                    }else if(d.name === "Maldives"){
-                        d.name = "Asia."+d.name;
+                    if(d.name === "Chinese Taipei" || d.name === "Maldives"){
+                        d.name = "ASIA."+d.name;
                     }else if(d.name === "Mauritius" || d.name === "Seychelles"){
-                        d.name = "Africa."+d.name;
+                        d.name = "AFRICA."+d.name;
                     }else if(d.name === "Norway"){
-                        d.name = "Europe."+d.name;
+                        d.name = "EUROPE."+d.name;
                     }
                     else{
-                        // try{
-                            d.name = f.features.find(c => c.properties.iso_a3 === d.code).properties.continent + "." + d.name;
-                        // }catch(err){
-                            // console.log("ERROR", err)
-                        // }
+                        d.name = f.features.find(c => c.properties.iso_a3 === d.code).properties.continent.toUpperCase() + "." + d.name;
                     }
 
                     // partners
                     d.exports.forEach(p => {
                         console.log("partner:", p)
-                        if(p.partnerEcon === "Chinese Taipei"){
-                        p.partnerEcon = "Asia."+p.partnerEcon;
-                        }else if(p.partnerEcon === "Maldives"){
-                            p.partnerEcon = "Asia."+p.partnerEcon;
+    
+                        p.partnerEcon = p.partnerEcon.includes(",") ? p.partnerEcon.split(",")[1].slice(1)+" "+p.partnerEcon.split(",")[0] : p.partnerEcon;
+
+                        if(p.partnerEcon === "Chinese Taipei" || p.partnerEcon === "Maldives"){
+                        p.partnerEcon = "ASIA."+p.partnerEcon;
                         }else if(p.partnerEcon === "Mauritius" || p.partnerEcon === "Seychelles"){
-                            p.partnerEcon = "Africa."+p.partnerEcon;
+                            p.partnerEcon = "AFRICA."+p.partnerEcon;
                         }else if(p.partnerEcon === "Norway"){
-                            p.partnerEcon = "Europe."+p.partnerEcon;
+                            p.partnerEcon = "EUROPE."+p.partnerEcon;
                         }
                         else{
-                            p.partnerEcon = f.features.find(c => c.properties.iso_a3 === p.partnerCode).properties.continent + "." + p.partnerEcon;
+                            p.partnerEcon = f.features.find(c => c.properties.iso_a3 === p.partnerCode).properties.continent.toUpperCase() + "." + p.partnerEcon;
                         }
                     });
 
