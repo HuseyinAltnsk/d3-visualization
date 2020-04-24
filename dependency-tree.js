@@ -915,8 +915,8 @@ function DependencyTreeControl(m, e, q) {
     var A = new DependencyTree();
     for (var H = 0; H < data.length; H++) {
         var D = A.get(data[H].name);
-        for (var E = 0; E < data[H].exports.length; E++) {
-            D.addEdge(A.get(data[H].exports[E]))
+        for (var E = 0; E < data[H].exporters.length; E++) {
+            D.addEdge(A.get(data[H].exporters[E]))
         }
     }
     var v = m.width,

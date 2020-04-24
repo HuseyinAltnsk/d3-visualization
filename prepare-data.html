@@ -61,9 +61,8 @@
                 formattedData = {
                     name: d.reportingEcon,
                     code: d.reportingCode,
-                    // size: sumPartners,
                     size: Math.round(d3.sum(d.partners, p => p.value)), // size is totalImports
-                    exports: d.partners.map(p => {
+                    exporters: d.partners.map(p => {
                         var obj = {};
                         obj.partnerEcon = p.partnerEcon;
                         obj.partnerCode = p.partnerCode
@@ -101,7 +100,7 @@
                     }
 
                     // partners - add sub categories to this key's partners
-                    d.exports.forEach(p => {
+                    d.exporters.forEach(p => {
                         // console.log("partner:", p)
     
                         p.partnerEcon = p.partnerEcon.includes(",") ? p.partnerEcon.split(",")[1].slice(1)+" "+p.partnerEcon.split(",")[0] : p.partnerEcon;
@@ -126,11 +125,11 @@
 
                 dataEdgeBundling.forEach(d => {
                     // d.name = d.name.split(" ").join("_")
-                    d.exports = d.exports.map(p => p.partnerEcon);
+                    d.exporters = d.exporters.map(p => p.partnerEcon);
                 })
 
                 console.log(dataEdgeBundling)
-                // saveData(dataEdgeBundling)
+                saveData(dataEdgeBundling)
             })
             
             

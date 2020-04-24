@@ -1,7 +1,7 @@
 var data = [
   {
     "name": "Albania",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -72,7 +72,7 @@ var data = [
   },
   {
     "name": "Argentina",
-    "exports": [
+    "exporters": [
       "Australia",
       "Austria",
       "Belgium",
@@ -139,7 +139,7 @@ var data = [
   },
   {
     "name": "Australia",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Austria",
       "Bangladesh",
@@ -231,7 +231,7 @@ var data = [
   },
   {
     "name": "Bolivia, Plurinational State of",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -291,7 +291,7 @@ var data = [
   },
   {
     "name": "Brazil",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -365,7 +365,7 @@ var data = [
   },
   {
     "name": "Belize",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Bangladesh",
@@ -416,7 +416,7 @@ var data = [
   },
   {
     "name": "Brunei Darussalam",
-    "exports": [
+    "exporters": [
       "Australia",
       "Austria",
       "Bangladesh",
@@ -466,7 +466,7 @@ var data = [
   },
   {
     "name": "Myanmar",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -545,7 +545,7 @@ var data = [
   },
   {
     "name": "Canada",
-    "exports": [
+    "exporters": [
       "Afghanistan",
       "Albania",
       "Algeria",
@@ -701,7 +701,7 @@ var data = [
   },
   {
     "name": "China",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -786,7 +786,7 @@ var data = [
   },
   {
     "name": "Chinese Taipei",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -851,7 +851,7 @@ var data = [
   },
   {
     "name": "Colombia",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -926,7 +926,7 @@ var data = [
   },
   {
     "name": "Costa Rica",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -1011,7 +1011,7 @@ var data = [
   },
   {
     "name": "Cuba",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -1060,7 +1060,7 @@ var data = [
   },
   {
     "name": "Ecuador",
-    "exports": [
+    "exporters": [
       "Afghanistan",
       "Argentina",
       "Australia",
@@ -1129,7 +1129,7 @@ var data = [
   },
   {
     "name": "El Salvador",
-    "exports": [
+    "exporters": [
       "Antigua and Barbuda",
       "Argentina",
       "Australia",
@@ -1200,7 +1200,7 @@ var data = [
   },
   {
     "name": "Georgia",
-    "exports": [
+    "exporters": [
       "Azerbaijan",
       "Argentina",
       "Australia",
@@ -1274,7 +1274,7 @@ var data = [
   },
   {
     "name": "Hong Kong, China",
-    "exports": [
+    "exporters": [
       "Andorra",
       "Argentina",
       "Australia",
@@ -1351,7 +1351,7 @@ var data = [
   },
   {
     "name": "Indonesia",
-    "exports": [
+    "exporters": [
       "Andorra",
       "Argentina",
       "Australia",
@@ -1424,7 +1424,7 @@ var data = [
   },
   {
     "name": "Israel",
-    "exports": [
+    "exporters": [
       "Afghanistan",
       "Argentina",
       "Australia",
@@ -1495,7 +1495,7 @@ var data = [
   },
   {
     "name": "Japan",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -1563,7 +1563,7 @@ var data = [
   },
   {
     "name": "Kazakhstan",
-    "exports": [
+    "exporters": [
       "Azerbaijan",
       "Argentina",
       "Austria",
@@ -1637,7 +1637,7 @@ var data = [
   },
   {
     "name": "Jordan",
-    "exports": [
+    "exporters": [
       "Algeria",
       "Azerbaijan",
       "Argentina",
@@ -1712,7 +1712,7 @@ var data = [
   },
   {
     "name": "Korea, Republic of",
-    "exports": [
+    "exporters": [
       "Algeria",
       "Argentina",
       "Australia",
@@ -1821,7 +1821,7 @@ var data = [
   },
   {
     "name": "Lao People's Democratic Republic",
-    "exports": [
+    "exporters": [
       "Australia",
       "Bangladesh",
       "Belgium",
@@ -1847,7 +1847,7 @@ var data = [
   },
   {
     "name": "Macao, China",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -1910,7 +1910,7 @@ var data = [
   },
   {
     "name": "Madagascar",
-    "exports": [
+    "exporters": [
       "Australia",
       "Austria",
       "Bangladesh",
@@ -1970,7 +1970,7 @@ var data = [
   },
   {
     "name": "Malaysia",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2037,7 +2037,7 @@ var data = [
   },
   {
     "name": "Maldives",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2092,7 +2092,7 @@ var data = [
   },
   {
     "name": "Mauritius",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2165,7 +2165,7 @@ var data = [
   },
   {
     "name": "Mexico",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2245,7 +2245,7 @@ var data = [
   },
   {
     "name": "Mongolia",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2315,7 +2315,7 @@ var data = [
   },
   {
     "name": "Moldova, Republic of",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Austria",
       "Bangladesh",
@@ -2386,7 +2386,7 @@ var data = [
   },
   {
     "name": "Morocco",
-    "exports": [
+    "exporters": [
       "Algeria",
       "Angola",
       "Argentina",
@@ -2455,7 +2455,7 @@ var data = [
   },
   {
     "name": "New Zealand",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2541,7 +2541,7 @@ var data = [
   },
   {
     "name": "Nicaragua",
-    "exports": [
+    "exporters": [
       "Albania",
       "Argentina",
       "Australia",
@@ -2610,7 +2610,7 @@ var data = [
   },
   {
     "name": "Norway",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2695,7 +2695,7 @@ var data = [
   },
   {
     "name": "Paraguay",
-    "exports": [
+    "exporters": [
       "Albania",
       "Argentina",
       "Australia",
@@ -2751,7 +2751,7 @@ var data = [
   },
   {
     "name": "Peru",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2823,7 +2823,7 @@ var data = [
   },
   {
     "name": "Philippines",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -2897,7 +2897,7 @@ var data = [
   },
   {
     "name": "Qatar",
-    "exports": [
+    "exporters": [
       "Albania",
       "Argentina",
       "Australia",
@@ -2970,7 +2970,7 @@ var data = [
   },
   {
     "name": "Saudi Arabia, Kingdom of",
-    "exports": [
+    "exporters": [
       "Algeria",
       "Antigua and Barbuda",
       "Argentina",
@@ -3055,7 +3055,7 @@ var data = [
   },
   {
     "name": "Senegal",
-    "exports": [
+    "exporters": [
       "Afghanistan",
       "Albania",
       "Antigua and Barbuda",
@@ -3119,7 +3119,7 @@ var data = [
   },
   {
     "name": "Seychelles",
-    "exports": [
+    "exporters": [
       "Andorra",
       "Australia",
       "Belgium",
@@ -3170,7 +3170,7 @@ var data = [
   },
   {
     "name": "Singapore",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -3272,7 +3272,7 @@ var data = [
   },
   {
     "name": "South Africa",
-    "exports": [
+    "exporters": [
       "Algeria",
       "Angola",
       "Argentina",
@@ -3382,7 +3382,7 @@ var data = [
   },
   {
     "name": "Switzerland",
-    "exports": [
+    "exporters": [
       "Albania",
       "Algeria",
       "Antigua and Barbuda",
@@ -3508,7 +3508,7 @@ var data = [
   },
   {
     "name": "Thailand",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -3590,7 +3590,7 @@ var data = [
   },
   {
     "name": "Togo",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Austria",
       "Bangladesh",
@@ -3640,7 +3640,7 @@ var data = [
   },
   {
     "name": "Ukraine",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -3724,7 +3724,7 @@ var data = [
   },
   {
     "name": "United States of America",
-    "exports": [
+    "exporters": [
       "Azerbaijan",
       "Argentina",
       "Australia",
@@ -3825,7 +3825,7 @@ var data = [
   },
   {
     "name": "Uruguay",
-    "exports": [
+    "exporters": [
       "Argentina",
       "Australia",
       "Austria",
@@ -3882,7 +3882,7 @@ var data = [
   },
   {
     "name": "Montenegro",
-    "exports": [
+    "exporters": [
       "Australia",
       "Austria",
       "Belgium",
