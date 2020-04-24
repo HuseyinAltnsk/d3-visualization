@@ -1157,12 +1157,12 @@ function DependencyTreeControl(m, e, q) {
         Q.addColorStop(1, d.end.toString());
         g.fillStyle = Q;
         g.fillRect(20, 18, b - 35, 5);
-        g.font = "15pt Times New Roman";
+        g.font = "13pt Sans-Serif";
         g.fillStyle = s.labelStart;
         g.fillText("A", 2, 22);
         g.fillStyle = s.labelEnd;
         g.fillText("B", b - 12, 22);
-        var j = "imports froms";
+        var j = "imports from";
         var i = g.measureText(j).width;
         g.fillStyle = s.intersectStroke;
         g.fillText(j, (b - i)/2, 15)
@@ -1177,7 +1177,7 @@ function DependencyTreeControl(m, e, q) {
         c()
     }
     this.init = function () {
-        J.font = "7.5pt Sans-Serif";
+        J.font = "10pt Sans-Serif";
         x();
         F()
     }
