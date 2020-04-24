@@ -85,12 +85,14 @@
 
                     d.name = d.name.includes(",") ? d.name.split(",")[1].slice(1)+" "+d.name.split(",")[0] : d.name;
                     // key
-                    if(d.name === "Chinese Taipei" || d.name === "Maldives"){
-                        d.name = "ASIA."+d.name;
+                    if(d.name === "Chinese Taipei"){
+                        d.name = "ASIA.SOUTH-EASTERN ASIA."+d.name;
+                    }else if(d.name === "Maldives"){
+                        d.name = "ASIA.SOUTHERN ASIA."+d.name;
                     }else if(d.name === "Mauritius" || d.name === "Seychelles"){
-                        d.name = "AFRICA."+d.name;
+                        d.name = "AFRICA.EASTERN AFRICA."+d.name;
                     }else if(d.name === "Norway"){
-                        d.name = "EUROPE."+d.name;
+                        d.name = "EUROPE.NORTHERN EUROPE."+d.name;
                     }
                     else{
                         var countryInfo = f.features.find(c => c.properties.iso_a3 === d.code);
@@ -103,12 +105,14 @@
     
                         p.partnerEcon = p.partnerEcon.includes(",") ? p.partnerEcon.split(",")[1].slice(1)+" "+p.partnerEcon.split(",")[0] : p.partnerEcon;
 
-                        if(p.partnerEcon === "Chinese Taipei" || p.partnerEcon === "Maldives"){
-                        p.partnerEcon = "ASIA."+p.partnerEcon;
+                        if(p.partnerEcon === "Chinese Taipei"){
+                            p.partnerEcon = "ASIA.SOUTH-EASTERN ASIA."+p.partnerEcon;
+                        }else if(p.partnerEcon === "Maldives"){
+                            p.partnerEcon = "ASIA.SOUTHERN ASIA."+p.partnerEcon;
                         }else if(p.partnerEcon === "Mauritius" || p.partnerEcon === "Seychelles"){
-                            p.partnerEcon = "AFRICA."+p.partnerEcon;
+                            p.partnerEcon = "AFRICA.EASTERN AFRICA."+p.partnerEcon;
                         }else if(p.partnerEcon === "Norway"){
-                            p.partnerEcon = "EUROPE."+p.partnerEcon;
+                            p.partnerEcon = "EUROPE.NORTHERN EUROPE."+p.partnerEcon;
                         }
                         else{
                             var partnerCountryInfo = f.features.find(c => c.properties.iso_a3 === p.partnerCode);

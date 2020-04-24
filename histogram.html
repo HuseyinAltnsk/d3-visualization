@@ -68,7 +68,7 @@ function displaySnackbar(msg) {
         height: 12          // the height is set after data is loaded
     }
     // after loading the data file, this will contain all data
-    var planets = [];
+    var nations = [];
     var cleanData = [];
 
     console.log(document.getElementById("myDiv").innerText)
@@ -82,19 +82,19 @@ function displaySnackbar(msg) {
 
     d3.selectAll("button")
         .on("click", function() {
-            var currentPlanets = svg.selectAll("g.entry").data();
+            var currentNations = svg.selectAll("g.entry").data();
             
             if(this.id == "ascending"){
                 currentButton = "ascending"
-                currentPlanets = currentPlanets.sort((a,b) => d3.ascending(a.totalTrades, b.totalTrades));
+                currentNations = currentNations.sort((a,b) => d3.ascending(a.totalTrades, b.totalTrades));
             }else if(this.id == "descending"){
                 currentButton = "descending"
-                currentPlanets = currentPlanets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades));
+                currentNations = currentNations.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades));
             }else if(this.id == "reset"){
                 window.location.reload();
             }
 
-            draw(currentPlanets, colorChange);  // bar color change flag: if redrawing by these buttons, don't change color
+            draw(currentNations, colorChange);  // bar color change flag: if redrawing by these buttons, don't change color
         });
 
     d3.csv("WtoData.csv").then(function(data) {
@@ -138,18 +138,18 @@ function displaySnackbar(msg) {
         // data.forEach(function(d) { 
         //     var obj = {}; 
         //     obj.iso_3a = d.key; obj.totalTrades = +d.value.totalTrades;
-        //     planets.push(obj)
+        //     nations.push(obj)
         // });  // this block not used cuz it adds another O(n)
         cleanData.map(d => {
             var obj = {};
             obj.iso_3a = d.reporting_iso_3a;
             obj.reportingEcon = d.reportingEcon;
             obj.totalTrades = d3.sum(d.partners, p => p.value);
-            planets.push(obj);
+            nations.push(obj);
         })
-        planets = planets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
+        nations = nations.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
 
-        // console.log(planets)
+        // console.log(nations)
         console.log(cleanData)
         // var len = 5000;
         // cleanData.forEach(d => { 
@@ -162,7 +162,7 @@ function displaySnackbar(msg) {
         init();
     });
 
-    function setupView(planets) {
+    function setupView(nations) {
         // disable all buttons
         // d3.selectAll("button")
         //   .property("disabled", false);
@@ -175,7 +175,7 @@ function displaySnackbar(msg) {
         .text(currentButton == "ascending" ? "Ascending" : "Descending");
 
         // update scale domain with current data
-        const maxValue = d3.max(planets, d => d.totalTrades);
+        const maxValue = d3.max(nations, d => d.totalTrades);
         barScale.domain([0, maxValue]);
         colorScale.domain([0, maxValue]);
     }
@@ -183,16 +183,16 @@ function displaySnackbar(msg) {
     // runs once
     function init() {
         // viewport setup
-        chart.height += planets.length * 21;
+        chart.height += nations.length * 21;
         svg.attr("width", chart.width)
            .attr("height", chart.height);
 
         // setup
-        setupView(planets);
+        setupView(nations);
 
         // bind the data and draw the first chart
         svg.selectAll("g")
-            .data(planets)
+            .data(nations)
             .enter().append("g").attr("class", "entry")
             .attr("transform", (d,i) => `translate(0,${6 + i * 21})`)
             .each(function(d) {
@@ -214,17 +214,17 @@ function displaySnackbar(msg) {
                     .attr("x", barScale(d.totalTrades) + 165)
                     .text("$"+format(d.totalTrades/1000000000) + " Billion");
             });
-        draw(planets, colorChange)
+        draw(nations, colorChange)
     }
 
-    function draw(planets, colorChange) {
-        setupView(planets);
+    function draw(nations, colorChange) {
+        setupView(nations);
         console.log("Color change:", colorChange)
 
         // svg.selectAll("g").selectAll("entry").remove();  // to remove all entries (bar data) inside the g's (bars) 
-        maxCurrentTotalTrade = d3.max(planets.map(d => d.totalTrades));
+        maxCurrentTotalTrade = d3.max(nations.map(d => d.totalTrades));
         svg.selectAll("g")
-            .data(planets)
+            .data(nations)
             // .enter().append("g").attr("class", "entry")
             // .attr("transform", (d,i) => `translate(0,${i * 21})`)
             .each(function (d) {
@@ -243,7 +243,7 @@ function displaySnackbar(msg) {
 
                         console.log(d, this);
 
-                        var newPlanets = [];
+                        var newNations = [];
                         var selectedC = cleanData.find(c => c.reporting_iso_3a == d.iso_3a)
                         console.log("selectedC", selectedC)
                         if(selectedC){
@@ -252,7 +252,7 @@ function displaySnackbar(msg) {
                                 obj.iso_3a = c.partner_iso_3a;
                                 obj.reportingEcon = c.partnerEcon;
                                 obj.totalTrades = c.value;
-                                newPlanets.push(obj);
+                                newNations.push(obj);
                             })
                         }else{
                             var msg = `${d.reportingEcon} does not have any imports in the records.`
@@ -260,12 +260,12 @@ function displaySnackbar(msg) {
                             entry.select(".bar").on("mouseout").call() // prevent color from turning black bc onclick prevents mouseout
                             
                         }
-                        newPlanets = newPlanets.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
+                        newNations = newNations.sort((a,b) => d3.descending(a.totalTrades, b.totalTrades)).slice(0, 20);
                         currentButton = "descending";
                         
-                        svg.selectAll("g.entry").data(newPlanets);
+                        svg.selectAll("g.entry").data(newNations);
                         window.colorChange = true; // setting the boolean within the scope of the document, rather than draw()
-                        draw(newPlanets, window.colorChange)
+                        draw(newNations, window.colorChange)
                     })
                     .on("mouseover", function(d){
                         // make current bar color lighter
@@ -307,11 +307,7 @@ function displaySnackbar(msg) {
                 })
 
 
-
-                //  adding Europe.Germany, MiddleEast.Tajikistan to layers/grouping in the viz
-                // back button for histogram
-                // disable clicking for 2 seconds for choropleth upon load ?? necessary or not ??
-                // rename planets/newPlanets to something else but similar
+                // rename nations/newNations to something else but similar
                 
                 // d3.select(this).select(".label.category")
                 //     .text(d.iso_3a); // the order may have changed
