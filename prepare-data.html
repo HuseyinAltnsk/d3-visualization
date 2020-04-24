@@ -55,8 +55,6 @@
             dataEdgeBundling = []
 
             cleanData.forEach(d => {
-                // sumPartners = 0;
-                // d.partners.forEach(p => sumPartners += p.value)
                 
                 formattedData = {
                     name: d.reportingEcon,
@@ -67,7 +65,7 @@
                         obj.partnerEcon = p.partnerEcon;
                         obj.partnerCode = p.partnerCode
                         return obj;
-                    }) // list of d.reportingEcon's exporters (those that sent do it)
+                    }) // list of d.reportingEcon's exporters (those that send to it)
                 }
                 dataEdgeBundling.push(formattedData)
             })
