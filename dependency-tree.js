@@ -1019,7 +1019,7 @@ function DependencyTreeControl(m, e, q) {
     function o(b) {
         b = b || q._node;
         q.style.color = b._style;
-        q.innerHTML = b.fullName.split(".").reverse().join("</br>");
+        q.innerHTML = b.fullName.split(".").reverse().join("<br/>");
         q._node = b;
     }
     var B = 0;
