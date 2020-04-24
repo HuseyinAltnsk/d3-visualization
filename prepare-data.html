@@ -75,16 +75,17 @@
 
             console.log(cleanData)
             console.log("dataEdgeBundling", dataEdgeBundling)
+
             var continentData = []
-            
             d3.json("world.geo.json").then(function(f){
 
                 console.log(f.features)
                 dataEdgeBundling.forEach(d => {
                     console.log(d)
-
+                    // normalize country names like "Korea, Republic of"
                     d.name = d.name.includes(",") ? d.name.split(",")[1].slice(1)+" "+d.name.split(",")[0] : d.name;
-                    // key
+
+                    // d key - add sub categories
                     if(d.name === "Chinese Taipei"){
                         d.name = "ASIA.SOUTH-EASTERN ASIA."+d.name;
                     }else if(d.name === "Maldives"){
@@ -99,7 +100,7 @@
                         d.name = countryInfo.properties.continent.toUpperCase() + "." + countryInfo.properties.subregion.toUpperCase() + "." + d.name;
                     }
 
-                    // partners
+                    // partners - add sub categories to this key's partners
                     d.exports.forEach(p => {
                         // console.log("partner:", p)
     
@@ -127,15 +128,10 @@
                     // d.name = d.name.split(" ").join("_")
                     d.exports = d.exports.map(p => p.partnerEcon);
                 })
-                console.log(dataEdgeBundling)
-                saveData(dataEdgeBundling)
-            })
 
-            // NEXT STEPS:
-            //  adding Europe.Germany, MiddleEast.Tajikistan to layers/grouping in the viz
-            //  chloroplath of each country's total exports
-            //  then the top exporter's main clients to focus on the that top country
-            // saveData(dataEdgeBundling)
+                console.log(dataEdgeBundling)
+                // saveData(dataEdgeBundling)
+            })
             
             
             

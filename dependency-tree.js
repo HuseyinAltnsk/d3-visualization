@@ -1187,7 +1187,7 @@ DependencyTreeControl._light = {
     edgeComposite: "darker",
     edgeStart: Color.orange,
     edgeEnd: Color.purple,
-    edgeInactive: "rgba(0, 0, 0, .008)",
+    edgeInactive: "rgba(0, 0, 0, .004)",
     labelStart: "rgb(255, 69, 0)",
     labelEnd: "rgb(113, 63, 232)",
     labelActive: "black",
