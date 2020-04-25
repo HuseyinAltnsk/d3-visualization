@@ -98,7 +98,7 @@
     <button class="buttonFeauture buttonFeauture2" type="button" id="toggle"
             style="margin-top:5px; height: 50px; color: #1205AD; font-weight: bold;"><span>Exports View</span></button>
     <h1 id="headline" class="textStyle" style="position:absolute; margin-left: 30%; vertical-align: middle;">
-        Total <span id="myView" style="color: #FF4500;"><b>Imports</b></span> by Country</h1>
+        Total <span id="view" style="color: #FF4500;"><b>Imports</b></span> by Country</h1>
 </div>
 <div style="display: flex;">
     <div style="width: 10%; flex: 1; padding: 1em;">
@@ -177,13 +177,13 @@ function ready(error, data, population) {
                 d3.select("#toggle").node().innerText = "Imports View"
                 d3.select("#toggle").style("color", "#FF4500").style("font-weight", "bold")
                 d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Exports</b> by Country"
-                console.log(d3.select("#myDiv").select("h1").select("#myView").style("color", "#1205AD"))
+                console.log(d3.select("#myDiv").select("h1").select("#view").style("color", "#1205AD"))  // make purple (blueish)
             }else{
                 tradeDirection = "Reporting Economy ISO3A Code"
                 d3.select("#toggle").node().innerText = "Exports View"
                 d3.select("#toggle").style("color", "#1205AD").style("font-weight", "bold")
                 d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Imports</b> by Country"
-                console.log(d3.select("#myDiv").select("h1").select("#myView").style("color", "#FF4500"))
+                console.log(d3.select("#myDiv").select("h1").select("#view").style("color", "#FF4500"))  // make orange
             }   
             d3.select('div#slider-range').select("svg").remove();
             d3.select('p#value-range').select("text").remove();
@@ -231,7 +231,7 @@ function ready(error, data, population) {
         });
         
         console.log("data.features", data.features)
-                                                                                                            // 2nd and 4th are original colors  
+                                                                                                            // 2nd and 4th positions are original colors  
         var myColorImports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#ffdacc", "#fcb59a", "#ff703b", "#FF4500"]) // orange
         var myColorExports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#c5bfff", "#8d86e3", "#4f42e3", "#1205AD"]) // purple
 
