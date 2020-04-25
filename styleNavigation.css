@@ -143,3 +143,40 @@
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+/* banner styles */
+.bannerText {
+    color: #053C5E;
+    font-size:25px;
+    font-family:Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -110%);
+    margin-top: -5px;
+    background-color: rgba(255, 218, 163, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    border:10px solid rgba(255, 194, 101, 0);
+    border-top: 15px solid rgba(255, 194, 101, 0);
+}
+.bannerTextP {
+    font-size: 14px !important;
+    text-align: right;
+    margin-bottom: -2px;
+}
+.bannerText2 {
+    color: #053C5E;
+    font-size:25px;
+    font-family:Arial, Helvetica, sans-serif;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, 260%);
+    margin-top: -5px;
+    background-color: rgba(255, 218, 163, 0.5);
+    text-align: center;
+    border-radius: 5px;
+    border:10px solid rgba(255, 194, 101, 0);
+    border-top: 15px solid rgba(255, 194, 101, 0);
+}
