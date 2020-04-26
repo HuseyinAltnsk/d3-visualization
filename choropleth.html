@@ -126,9 +126,15 @@
     <div class="textStyle col-sm-2"><p id="value-range" style="width: 200px; margin-left: 205px; margin-bottom: -10px;"></p></div>
     <div class="col-sm"><div id="slider-range"></div></div>
 </div>
-<div><br/>
+<div style="width: 45%; margin:auto"><br/>
     <h3 class="textStyle" style="font-size: 18.5px; text-align: center;"><b>Observations</b></h3>
-    <p class="textStyle"></p>
+    <p class="textStyle"><span class="textFirstLetter">T</span>he United States has the largest amount of imports by far with $300 billion, followed by Switzerland with only $86 billion, about one fourth of the US!<br/>
+        The Americas are highly engaged in large amounts of imports, unlike Europe and Africa.<br/>
+        Germany is the top exporter of the world with $131 billion. A large number of big exporters are in Europe and some in Asia. Many African countries export, but size of exports
+        globally the smallest.<br/><br/>
+        Americas seem to be globally the weakest in the industry with extremely high amount of imports of pharmaceutical products, a sign of difficulty in coping with medical
+        challenges with domestics resources.
+    </p>
 </div>
 <script>
 var format = d3.format(",");
@@ -139,9 +145,8 @@ var tip = d3.tip()
         .offset([100, 40])
         .html(function(d) {
             if(d.totalTrades !== undefined){
-                inMillions = format(Math.round(d.totalTrades))
-                // stat = inMillions + " million"
-                stat = "$" + inMillions
+                tt = format(Math.round(d.totalTrades))
+                stat = "$" + tt
             }else{
                 stat = "NaN"
             }
@@ -290,7 +295,7 @@ function ready(error, data, population) {
                 var currentMinMax = d3.extent(currentData, d => d.totalTrades)
                 d3.select("#toggle").node().innerText === "Exports View" ? myColorImports.domain(currentMinMax) : myColorExports.domain(currentMinMax) // domain updated with filtered data's range
 
-                d3.select('p#value-range').text(val.map(d3.format('$.4')).join(' - '));
+                d3.select('p#value-range').text(val.map(d3.format('$.4')).join(' - ')).append("span").text(" b").style("font-size", "10px");
                 d3.select("div#choropleth").select("g").selectAll("path")
                     .style("fill", d => {
                           return d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000 ?
@@ -315,8 +320,7 @@ function ready(error, data, population) {
                 .value()
                 .map(d3.format('$.4'))
                 .join(' - ')
-
-        );
+        ).append("span").text(" b").style("font-size", "10px")
         
         
     }
