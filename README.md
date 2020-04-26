@@ -1,3 +1,3 @@
 # d3-visualization
-Analyzing the global bilateral trades of pharmaceutical products with dynamic and interactive visualizations created using D3.js<br/>
-You can view the project on huseyinaltinisik.com
+<h3>Analyzing the global bilateral trades of pharmaceutical products with dynamic and interactive visualizations created using D3.js</h3>
+You can view the project <a href="https://www.huseyinaltinisik.com">here</a>.
