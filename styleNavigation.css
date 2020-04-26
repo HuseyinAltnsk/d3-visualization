@@ -2,6 +2,10 @@
     font-family: Arial, Helvetica, sans-serif;
     padding: 5px;
 }
+.textFirstLetter {
+    font-size: 30px !important;
+    font-weight: bold !important;
+}
 /* Main navigation buttons */
 .buttonLink {
     display: inline-block;
