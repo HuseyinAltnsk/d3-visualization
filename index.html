@@ -22,7 +22,10 @@
         <p></p>
     <div style="width: 45%; margin: auto;">
     <h3 class="textStyle" style="margin-bottom: -5px; text-align: center;">Definitions</h3>
-    <p class="textStyle" style="padding-left: 20px;"><b><span class="textFirstLetter">B</span>ilateral Trade:</b> Exchange of goods between a unique pair of countries</p>
+    <p class="textStyle" style="padding-left: 20px;"><b>Bilateral Trade:</b> Exchange of goods between a unique pair of countries<br/>
+    <b>Choropleth:</b> A thematic map in which individual areas are colored based on a statistical variable or geographic characteristics.<br/>
+    <b>Hierarchical Edge Bundling:</b> A type of chart that visualizes adjacency relations between the individual entities organized in a hierarchy.
+    </p>
     <h3 class="textStyle" style="margin-bottom: -5px; text-align: center;">Description</h3>
     <p class="textStyle" style="padding-left: 20px;"><span class="textFirstLetter">T</span>he strength of a pharmaceutical industry is a major determiner of
         how safe and streamlined drug development process in a country can be; and the development of medicines and vaccines are among the most effective
@@ -33,7 +36,7 @@
     <h3 class="textStyle" style="margin-bottom: 10px; text-align: center;">Dataset</h3>
     <div class="textStyle" style="padding-left: 20px; ">
         <span class="textFirstLetter">A</span>ll statistical information used for this project was taken from the following website of World Trade Organization (WTO):
-        <a href="https://timeseries.wto.org/" target="_blank">https://timeseries.wto.org/</a><br>
+        <a href="https://timeseries.wto.org/" target="_blank">https://timeseries.wto.org/</a><br><br>
         The dataset used here corresponds to the bilateral imports of pharmaceutical products by country in 2017. A full list of the 
         product categories taken into account can be found here: <a href="http://localhost:3000/products.txt" target="_blank">Product Categories</a><br>
         The dataset contains
@@ -44,8 +47,14 @@
         </ul> 
     </div>
     <h3 class="textStyle" style="margin-bottom: -5px; text-align: center;">Visualizations</h3>
-    <p class="textStyle" style="padding-left: 20px;"><span class="textFirstLetter">T</span>hree different types of visualizations were used to analyze the dataset from three unique perspectives.</p>
+    <p class="textStyle" style="padding-left: 20px;"><span class="textFirstLetter">T</span>hree different types of visualizations were used to analyze the dataset from three unique perspectives.<br/><br/>
+    <b>Choropleth:</b> This chart provides a global perspective into the trades of pharmaceutical products to get an understanding of the top importer or exporter country and regions.<br/>
+    <b>Histogram:</b> To investigate the important exporters of the top importers, a histogram was created with a dynamic country filtering functionality.<br/>
+    <b>Hierarchical Edge Bundling:</b> An analysis of the dependence of countries in pharmaceutical trades would not be complete without a HEB that allows for a deeper look into mutual relations of
+    countries and even continents.
+    </p>
     <div style=" text-align: center;">
+        <h3 class="textStyle">Let's dive in!</h3>
         <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/choropleth.html';" id="myButton"><span>Choropleth</span></button>
         <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/histogram.html';" id="myButton"><span>Histogram</span></button><br/>
         <button class="buttonLink float-left submit-button" style="vertical-align:middle; width: 415px;" onclick="location.href='http://localhost:3000/edge-bundling.html';" id="myButton"><span>Hierarchical Edge Bundling</span></button>
