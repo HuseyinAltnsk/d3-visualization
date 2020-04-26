@@ -98,7 +98,7 @@
     <button class="buttonFeauture buttonFeauture2" type="button" id="toggle"
             style="margin-top:5px; height: 50px; color: #1205AD; font-weight: bold;"><span>Exports View</span></button>
     <h1 id="headline" class="textStyle" style="position:absolute; margin-left: 30%; vertical-align: middle;">
-        Total <span id="view" style="color: #FF4500;"><b>Imports</b></span> by Country</h1>
+        Total <span id="view" style="color: #FF4500; font-weight: bold;">Imports</span> by Country</h1>
 </div>
 <div style="display: flex;">
     <div style="width: 10%; flex: 1; padding: 1em;">
@@ -125,6 +125,10 @@
 <div style="margin-left: 30%;">
     <div class="textStyle col-sm-2"><p id="value-range" style="width: 200px; margin-left: 205px; margin-bottom: -10px;"></p></div>
     <div class="col-sm"><div id="slider-range"></div></div>
+</div>
+<div><br/>
+    <h3 class="textStyle" style="font-size: 18.5px; text-align: center;"><b>Observations</b></h3>
+    <p class="textStyle"></p>
 </div>
 <script>
 var format = d3.format(",");
@@ -175,16 +179,13 @@ function ready(error, data, population) {
             
             if(tradeDirection == "Reporting Economy ISO3A Code"){
                 tradeDirection = "Partner Economy ISO3A Code"
-                d3.select("#toggle").node().innerText = "Imports View"
-                d3.select("#toggle").style("color", "#FF4500").style("font-weight", "bold")
-                d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Exports</b> by Country"
-                console.log(d3.select("#myDiv").select("h1").select("#view").style("color", "#1205AD"))  // make purple (blueish)
+                d3.select("#toggle").style("color", "#FF4500").style("font-weight", "bold").node().innerText = "Imports View"
+                d3.select("#myDiv").select("h1").select("#view").text("Exports").style("color", "#1205AD")  // make purple (blueish)
             }else{
                 tradeDirection = "Reporting Economy ISO3A Code"
-                d3.select("#toggle").node().innerText = "Exports View"
-                d3.select("#toggle").style("color", "#1205AD").style("font-weight", "bold")
-                d3.select("#myDiv").select("h1").node().innerHTML = "Total <b>Imports</b> by Country"
-                console.log(d3.select("#myDiv").select("h1").select("#view").style("color", "#FF4500"))  // make orange
+                d3.select("#toggle").style("color", "#1205AD").style("font-weight", "bold").node().innerText = "Exports View"
+                d3.select("#myDiv").select("h1").select("#view").text("Imports").style("color", "#FF4500")  // make purple (blueish)
+
             }   
             d3.select('div#slider-range').select("svg").remove();
             d3.select('p#value-range').select("text").remove();
