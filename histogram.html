@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>Histogram of Imports</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- navigation button style -->
     <link rel="stylesheet" href="styleNavigation.css" />
@@ -29,15 +29,22 @@
 <button class="buttonBack" style="vertical-align:middle; height: 50px; margin-top: -10px; margin-left: 0px; float: left;" type="button" id="back"
     onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
 <h1 class="textStyle" style="margin-left: 20%; margin-bottom: -10px;"><span id="chart"></span> Total Imports</h1>
-<h3 class="textStyle">Country: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
+<h3 class="textStyle">Displaying imports of: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
 <div style="display: flex;">
     <div>
         <svg class="bar-chart"></svg>
     </div>
-    <div class="textStyle" style="margin-left:50px; margin-right: 20px;">
-        <p>This chart displays the total imports of pharmaceutical products in billion USD of the top 20 countries.<br><br>
-        <span style="font-style: italic;">By clicking on a country's bar, you can display the top exporters i.e. partners of the selected country.</span>
+    <div class="textStyle" style="margin-left:30px; margin-right: 20px;">
+        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -5px;"><b>Chart Info:</b></h3>
+        <p style="padding-left: 15px;">This histogram displays the total imports of pharmaceutical products of the top 20 countries, providing an insight
+            into the ranking of major importers as well as their main dependees.
         </p>
+        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -5px;"><b>Interactions:</b></h3>
+        <ul class="textStyle" style="margin-left: 25px; margin-bottom: -10px;">
+            <li>Display the top exporters i.e. partners of a country by clicking on its bar.</li>
+            <li>Reset the graph to back to total imports or for a new dive into a country's list of partners.</li>
+            <li></li>
+        </ul>
 
     </div>
 </div>
@@ -239,14 +246,14 @@ function displaySnackbar(msg) {
                 
                 entry.select(".bar")
                     .on("click", function(d){
-                        d3.select("#curCountry").text(d.reportingEcon)
-
+                        
                         console.log(d, this);
-
+                        
                         var newNations = [];
                         var selectedC = cleanData.find(c => c.reporting_iso_3a == d.iso_3a)
                         console.log("selectedC", selectedC)
                         if(selectedC){
+                            d3.select("#curCountry").text(d.reportingEcon)
                             selectedC.partners.map(c => {
                                 var obj = {};
                                 obj.iso_3a = c.partner_iso_3a;
