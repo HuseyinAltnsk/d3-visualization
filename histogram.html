@@ -26,35 +26,46 @@
     </style>
 </head>
 <body style="background-color: #E1F2FE;">
-<button class="buttonBack" style="vertical-align:middle; height: 50px; margin-top: -10px; margin-left: 0px; float: left;" type="button" id="back"
-    onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
-<h1 class="textStyle" style="margin-left: 20%; margin-bottom: -10px;"><span id="chart"></span> Total Imports</h1>
-<h3 class="textStyle">Displaying imports of: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
-<div style="display: flex;">
-    <div>
-        <svg class="bar-chart"></svg>
-    </div>
-    <div class="textStyle" style="margin-left:30px; margin-right: 20px;">
-        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -5px;"><b>Chart Info:</b></h3>
+<div style="display: flex; margin-bottom: -20px;">
+    <button class="buttonBack" style="vertical-align:middle; height: 50px; margin-left: 0px;" type="button" id="back"
+        onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
+    <h1 class="textStyle" style="margin-left: 20%; margin-top: 5px;"><span id="chart"></span> Total Imports</h1>
+</div>
+    <div style="display: flex;">
+        <div>
+            <h3 class="textStyle">Displaying imports of: <span id="curCountry" style="font-size: 15px; font-weight: lighter;">Click on a bar to select country</span></h3>
+            <div>
+                <svg class="bar-chart" style="margin-top: -10px;"></svg>
+            </div>
+            <br/>
+            <div id="myDiv" class="two" style="width: 40%;">
+                <button class="buttonFeauture buttonFeauture2" type="button" id="ascending"><span>Ascending</span></button>
+                <button class="buttonFeauture buttonFeauture2" type="button" id="descending"><span>Descending</span></button><br/>
+                <button class="buttonFeauture buttonFeauture2" style="width:280px;" type="button" id="reset"><span>Reset</span></button>
+            </div>
+        </div>
+    <div class="textStyle" style="margin-left:30px; margin-right: 10px;">
+        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -10px;"><b>Chart Info:</b></h3>
         <p style="padding-left: 15px;">This histogram displays the total imports of pharmaceutical products of the top 20 countries, providing an insight
             into the ranking of major importers as well as their main dependees.
         </p>
-        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -5px;"><b>Interactions:</b></h3>
+        <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -15px;"><b>Interactions:</b></h3>
         <ul class="textStyle" style="margin-left: 25px; margin-bottom: -10px;">
             <li>Display the top exporters i.e. partners of a country by clicking on its bar.</li>
             <li>Reset the graph to back to total imports or for a new dive into a country's list of partners.</li>
-            <li></li>
-        </ul>
-
+        </ul><br/>
+        <h3 class="textStyle" style="font-size: 18.5px; text-align: center; margin-top: 0px; margin-bottom: -20px;"><b>Observations</b></h3>
+        <p class="textStyle"><span class="textFirstLetter">D</span>iscrepancy between the US and other countries is made more visible with this histogram.<br/><br/>
+            The countries here can be viewed as in ranks of level of dependencies, however; taking into account the exporters of the selected is also important
+            in being able to conclude if a country is completely dependent or it exports as much as it imports as well. For example, Switzerland, 2nd top global importer, also
+            emerges as the exporter i.e. partner of many other top importers, showing that its added exports nears its total imports.<br/><br/>
+            Despite allowing a cross-analysis of top importers and exporters, the histogram falls short of demonstrating the bigger picture of bilateral dependencies.
+            In this case, the HEB dependency tree comes to the rescue.
+        </p>
     </div>
 </div>
 
-<br/>
-<div id="myDiv" class="two">
-    <button class="buttonFeauture buttonFeauture2" type="button" id="ascending"><span>Ascending</span></button>
-    <button class="buttonFeauture buttonFeauture2" type="button" id="descending"><span>Descending</span></button><br/>
-    <button class="buttonFeauture buttonFeauture2" style="width:280px;" type="button" id="reset"><span>Reset</span></button>
-</div>
+
 
 <!-- Snackbar for the message -->
 <div id="snackbar">Some text message..</div>
