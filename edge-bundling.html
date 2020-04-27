@@ -39,12 +39,12 @@
   </head>
   <body>
     <div style="margin-bottom: -40px;">
-    <button class="buttonBack submit-button" style="float:left; vertical-align:middle; height: 50px;" type="button" id="back"
-    onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button><br/>
-      <h1 style="text-align: center; border:solid green;">Dependency Tree</h1><br/>
+    <button class="buttonBack submit-button" style="float:left; position:absolute; vertical-align:middle; height: 50px;" type="button" id="back"
+    onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
+      <h1 class="textStyle" style="text-align: center; padding-top: 20px;">Dependency Tree</h1><br/>
   </div>
-    <div style="float:left; width: 33%; border:solid brown;">
-      <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -10px; padding-left:20px;"><b>Chart Info</b></h3>
+    <div style="float:left; width: 33%;">
+      <h3 class="textStyle" style="font-size: 18.5px; text-align:center;margin-bottom: -15px; padding-left:20px;"><b>Chart Info</b></h3>
       <p class="textStyle" style="margin-left: 5px; padding-left:20px;">
         This Hierarchical Edge Building chart illustrates the parallel dependency between the countries for pharmaceutical products,
         making it easy to trace the main traders of each country and continent. The countries are grouped by their continents and then by their subregions within the continent.
@@ -57,8 +57,8 @@
         <li style="margin-left: 25px;"><span style="color: #000000"><b>Black</b></span> to <span style="color: #000000"><b>Black</b></span>: Mutual imports</li>
       </ul>
     </div>
-    <div style="float: left; width: 32%; border:solid brown;">
-      <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -15px;"><b>Interactions</b></h3>
+    <div style="float: left; width: 32%;">
+      <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -15px; text-align:center;"><b>Interactions</b></h3>
       <ul class="textStyle" style="margin-left: 25px; margin-right:15px;">
         <li>Draw a line on the chart to highlight a single or a group of dependencies. To reset, click on an empty area.</li>
         <li>Hover over a country to display it's name, subregion and continent.</li>
@@ -67,7 +67,7 @@
         <li>Click on the country names and drag to rotate the chart.</li>
       </ul>
     </div>
-    <div style="float:left; width: 33%; border:solid brown;">
+    <div style="float:left; width: 33%;">
       <h3 class="textStyle" style="font-size: 18.5px; text-align: center; margin-bottom: -30px;"><b>Observations</b></h3>
       <p class="textStyle"><span class="textFirstLetter">T</span>he majority of the countries engage in exports as most of them are purple. Select the lines from some or all
         countries in Americas. As you will see, most of the highlighted countries will be around Europe, showing that most of North and South America, especially the US and Canada,
