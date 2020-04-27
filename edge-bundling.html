@@ -38,10 +38,12 @@
     </style>
   </head>
   <body>
-
-    <button class="buttonBack float-left submit-button" style="vertical-align:middle; height: 50px; margin-bottom:-10px" type="button" id="back"
+    <div style="margin-bottom: -40px;">
+    <button class="buttonBack submit-button" style="float:left; vertical-align:middle; height: 50px;" type="button" id="back"
     onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button><br/>
-    <div style="float:left; width: 33%; border: solid black;">
+      <h1 style="text-align: center; border:solid green;">Dependency Tree</h1><br/>
+  </div>
+    <div style="float:left; width: 33%; border:solid brown;">
       <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -10px; padding-left:20px;"><b>Chart Info</b></h3>
       <p class="textStyle" style="margin-left: 5px; padding-left:20px;">
         This Hierarchical Edge Building chart illustrates the parallel dependency between the countries for pharmaceutical products,
@@ -55,7 +57,7 @@
         <li style="margin-left: 25px;"><span style="color: #000000"><b>Black</b></span> to <span style="color: #000000"><b>Black</b></span>: Mutual imports</li>
       </ul>
     </div>
-    <div style="float: left; width: 32%; border: solid green">
+    <div style="float: left; width: 32%; border:solid brown;">
       <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -15px;"><b>Interactions</b></h3>
       <ul class="textStyle" style="margin-left: 25px; margin-right:15px;">
         <li>Draw a line on the chart to highlight a single or a group of dependencies. To reset, click on an empty area.</li>
@@ -65,16 +67,18 @@
         <li>Click on the country names and drag to rotate the chart.</li>
       </ul>
     </div>
-    <div style="float:left; width: 33%; border:solid brown">
-      <h3 class="textStyle" style="font-size: 18.5px; text-align: center; margin-bottom: -26px;"><b>Observations</b></h3>
-      <p class="textStyle"><span class="textFirstLetter">D</span>
-
+    <div style="float:left; width: 33%; border:solid brown;">
+      <h3 class="textStyle" style="font-size: 18.5px; text-align: center; margin-bottom: -30px;"><b>Observations</b></h3>
+      <p class="textStyle"><span class="textFirstLetter">T</span>he majority of the countries engage in exports as most of them are purple. Select the lines from some or all
+        countries in Americas. As you will see, most of the highlighted countries will be around Europe, showing that most of North and South America, especially the US and Canada,
+        is dependent on Europe. The exports from the Americas are also nearly only within the region and East Asia.<br/><br/>Pay attention to the end of the lines in Europe, a
+        vast majority are purple, indicating higher power in the industry, whereas most orange-ended lines reach African countries, hinting at higher levels of dependence.
       </p>
     </div>
 
 
-    <div style="text-align: center; border:solid blue; padding-bottom: 100px;">
-      <canvas id="canvas" width="1050" height="1000" style="border:solid orange"></canvas>
+    <div style="text-align: center;">
+      <canvas id="canvas" width="1050" height="1000" style="margin-top:-40px;"></canvas>
       <canvas id="legend" width="200" height="30"></canvas>
       <div id="label" style="font-size:16px; font-weight: bold; font-family: Sans-Serif; text-align: left;"></div>
     </div>
