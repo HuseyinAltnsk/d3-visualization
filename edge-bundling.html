@@ -38,31 +38,42 @@
     </style>
   </head>
   <body>
-    <div style="position: absolute;">
-    <button class="buttonBack float-left submit-button" style="vertical-align:middle; height: 50px;" type="button" id="back"
+
+    <button class="buttonBack float-left submit-button" style="vertical-align:middle; height: 50px; margin-bottom:-10px" type="button" id="back"
     onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button><br/>
-    <p class="textStyle" style="margin-left: 5px;">
-      This Hierarchical Edge Building chart illustrates <br/>
-      the bilateral dependency between the countries <br/>
-      for pharmaceutical products.<br/>Below is the guideline to read the chart.
-    </p>
-    <ul class="textStyle" style="margin-left: 5px;">
-      <b>Connection types between A-B</b>
-      <li style="margin-left: 25px;">Orange to Purple: Orange imports from Purple</li>
-      <li style="margin-left: 25px;">Orange to Black: Orange imports from Black</li>
-      <li style="margin-left: 25px;">Black to Purple: Black imports from Purple</li>
-      <li style="margin-left: 25px;">Black to Black: Mutual imports</li>
-    </ul>
-    <p class="textStyle" style="margin-left: 5px; font-style: italic;">
-      Draw a line on the chart to highlight specific<br/>
-      dependencies and drag the country names to <br/> rotate the chart.
-    </p>
+    <div style="float:left; width: 33%; border: solid black;">
+      <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -10px; padding-left:20px;"><b>Chart Info:</b></h3>
+      <p class="textStyle" style="margin-left: 5px; padding-left:20px;">
+        This Hierarchical Edge Building chart illustrates the bilateral dependency between the countries for pharmaceutical products.
+      </p>
+      <ul class="textStyle" style=" padding-left:20px">
+        <b>Connection types between A-B</b>
+        <li style="margin-left: 25px;">Orange to Purple: Orange imports from Purple</li>
+        <li style="margin-left: 25px;">Orange to Black: Orange imports from Black</li>
+        <li style="margin-left: 25px;">Black to Purple: Black imports from Purple</li>
+        <li style="margin-left: 25px;">Black to Black: Mutual imports</li>
+      </ul>
     </div>
-    <center style="background-color: #E1F2FE;">
-      <canvas id="canvas" width="1000" height="900"></canvas>
+    <div style="float: left; width: 32%; border: solid green">
+      <h3 class="textStyle" style="font-size: 18.5px; margin-bottom: -15px;"><b>Interactions:</b></h3>
+      <ul class="textStyle" style="margin-left: 25px;">
+        <li>Draw a line on the chart to highlight specific dependencies and drag the country names to rotate the chart.</li>
+        <li>Draw a line on the chart to highlight specific dependencies and drag the country names to rotate the chart.</li>
+      </ul>
+    </div>
+    <div style="float:left; width: 33%; border:solid brown">
+      <h3 class="textStyle" style="font-size: 18.5px; text-align: center; margin-bottom: -26px;"><b>Observations</b></h3>
+      <p class="textStyle"><span class="textFirstLetter">D</span>iscrepancy between the US and other countries is made more visible with this histogram.<br/><br/>
+        asd
+      </p>
+    </div>
+
+
+    <div style="text-align: center; border:solid blue; padding-bottom: 100px;">
+      <canvas id="canvas" width="1050" height="1000" style="border:solid orange"></canvas>
       <canvas id="legend" width="200" height="30"></canvas>
       <div id="label" style="font-size:20px; font-weight: bold; text-align: left;"></div>
-    </center>
+    </div>
     <script type="text/javascript">
     // source->target
     // black->orange (orange has black, i.e. orange:{black, ...}

@@ -921,8 +921,8 @@ function DependencyTreeControl(m, e, q) {
     }
     var v = m.width,
         I = m.height,
-        y = 80;
-    var r = 0;
+        y = 170;  // this is what you change to scale the chart
+    var r = 0;    // orientation angle of the entity names
     var p = new AffineTransform().translate(v / 2, I / 2).scale(Math.min(v, I) / 2 - y);
     var M = new CircleLayout(A);
     M.startRadius = 0.6;
