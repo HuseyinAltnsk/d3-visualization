@@ -240,10 +240,13 @@ function ready(error, data, population) {
         });
         
         console.log("data.features", data.features)
-                                                                                                            // 2nd and 4th positions are original colors  
-        var myColorImports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#ffdacc", "#fcb59a", "#ff703b", "#FF4500"]) // orange
-        var myColorExports = d3.scaleThreshold().domain(d3.extent(data.features, d => d.totalTrades)).range(["#c5bfff", "#8d86e3", "#4f42e3", "#1205AD"]) // purple
-
+        
+        // 2nd and 4th positions are original colors  
+        // ["#ffdacc", "#fcb59a", "#ff703b", "#FF4500"]) // orange
+        // ["#c5bfff", "#8d86e3", "#4f42e3", "#1205AD"]) // purple
+        var myColor = d3.scaleLinear().domain(d3.extent(data.features, d => d.totalTrades))
+            .range(document.getElementById("headline").innerText.includes("Imports") ? ["#fcb59a", "#FF4500"] : ["#8d86e3", "#1205AD"])
+        
         svg.append("g")
             .attr("class", "countries")
         .selectAll("path")
@@ -252,8 +255,7 @@ function ready(error, data, population) {
             .attr("d", path)
             
             // .style("fill", d => d3.color("lightblue").darker(logScale(d.totalTrades)))
-            .style("fill", d => d.totalTrades === undefined ? "lightgray" 
-                : d3.select("#toggle").node().innerText === "Exports View" ? myColorImports(d.totalTrades) : myColorExports(d.totalTrades))
+            .style("fill", d => d.totalTrades === undefined ? "lightgray" : myColor(d.totalTrades))
             .style('stroke', 'white')
             .style('stroke-width', 1.5)
             // .style("opacity", d => d.totalTrades === undefined ? 0.1 : 1)
@@ -295,14 +297,12 @@ function ready(error, data, population) {
             .on('onchange', val => {
                 var currentData = data.features.filter(d => d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000);
                 var currentMinMax = d3.extent(currentData, d => d.totalTrades)
-                d3.select("#toggle").node().innerText === "Exports View" ? myColorImports.domain(currentMinMax) : myColorExports.domain(currentMinMax) // domain updated with filtered data's range
+                myColor.domain(currentMinMax)  // domain updated with filtered data's range
 
                 d3.select('p#value-range').text(val.map(d3.format('$.4')).join(' - ')).append("span").text(" b").style("font-size", "10px");
                 d3.select("div#choropleth").select("g").selectAll("path")
                     .style("fill", d => {
-                          return d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000 ?
-                          d3.select("#toggle").node().innerText === "Exports View" ? myColorImports(d.totalTrades) : myColorExports(d.totalTrades)
-                            : "lightgray";
+                          return d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000 ? myColor(d.totalTrades) : "lightgray";
                         })
                     // .style("opacity", d => !(d.totalTrades>=val[0]*1000000000 && d.totalTrades<=val[1]*1000000000) ? 0.1 : 1)
 
