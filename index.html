@@ -1,5 +1,6 @@
 
 <html>
+    <script>function redir(url){window.location = url;}</script>
     <head>
         <title>Analyzing Trades of Pharmaceutics</title>
         <header role="banner">
@@ -39,7 +40,7 @@
         <span class="textFirstLetter">A</span>ll statistical information used for this project was taken from the following website of World Trade Organization (WTO):
         <a href="https://timeseries.wto.org/" target="_blank">https://timeseries.wto.org/</a><br><br>
         The dataset used here corresponds to the bilateral imports of pharmaceutical products by country in 2017. A full list of the 
-        product categories taken into account can be found here: <a href="http://localhost:3000/products.txt" target="_blank">Product Categories</a><br><br/>
+        product categories taken into account can be found here: <a href="/products.txt" target="_blank">Product Categories</a><br><br/>
         The dataset contains
         <ul class="textStyle" style="padding-left: 40px; margin-bottom: -5px">
             <li>177 unique countries across the globe.</li>
@@ -56,9 +57,9 @@
     </p>
     <div style=" text-align: center;">
         <h4 class="textStyle">Let's dive in!</h4>
-        <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/choropleth.html';" id="myButton"><span>Choropleth</span></button>
-        <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="location.href='http://localhost:3000/histogram.html';" id="myButton"><span>Histogram</span></button><br/>
-        <button class="buttonLink float-left submit-button" style="vertical-align:middle; width: 415px;" onclick="location.href='http://localhost:3000/edge-bundling.html';" id="myButton"><span>Hierarchical Edge Bundling</span></button>
+        <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="redir('/choropleth.html')" id="myButton"><span>Choropleth</span></button>
+        <button class="buttonLink float-left submit-button" style="vertical-align:middle" onclick="redir('/histogram.html')" id="myButton"><span>Histogram</span></button><br/>
+        <button class="buttonLink float-left submit-button" style="vertical-align:middle; width: 415px;" onclick="redir('/edge-bundling.html')" id="myButton"><span>Hierarchical Edge Bundling</span></button>
     </div>
     <h3 class="textStyle" style="margin-bottom: 10px; text-align: center;">Limitations</h3>
     <p class="textStyle">
