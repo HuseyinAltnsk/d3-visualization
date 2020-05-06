@@ -3,6 +3,8 @@
 <head>
     <title>Histogram of Imports</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>function redir(url){window.location = url;}</script>
+
     <!-- navigation button style -->
     <link rel="stylesheet" href="styleNavigation.css" />
     <style>
@@ -28,7 +30,7 @@
 <body style="background-color: #E1F2FE;">
 <div style="display: flex; margin-bottom: -20px;">
     <button class="buttonBack" style="vertical-align:middle; height: 50px; margin-left: 0px;" type="button" id="back"
-        onclick="location.href='http://localhost:3000/index.html';"><span>Back</span></button>
+        onclick="redir('/index.html')"><span>Back</span></button>
     <h1 class="textStyle" style="margin-left: 20%; margin-top: 5px;"><span id="chart"></span> Total Imports</h1>
 </div>
     <div style="display: flex;">
